@@ -13,11 +13,36 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::factory(1000)->create();
 
-        User::factory()->create([
+
+        $this->call([
+            BusinessSeeder::class,
+            PaymentLinkSeeder::class,
+            SaleSeeder::class,
+        ]);
+
+        $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'password' => bcrypt('password'),
+        ]);
+        $business = \App\Models\Business::factory()->create([
+            'name' => 'Test Business',
+            'currency' => 'EUR',
+        ]);
+        $business->users()->attach($user->id, ['role' => 'admin']);
+        $paymentLink = \App\Models\PaymentLink::factory()->create([
+            'business_id' => $business->id,
+            'user_id' => $user->id,
+            'title' => 'Test Landlord Reference Letter',
+            'amount' => 50,
+            'description' => 'This is a test landlord reference letter.',
+            'currency' => 'EUR',
+        ]);
+        \App\Models\Sale::factory(10000)->create([
+            'business_id' => $business->id,
+            'payment_link_id' => $paymentLink->id,
         ]);
     }
 }

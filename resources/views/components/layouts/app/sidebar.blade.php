@@ -19,16 +19,6 @@
 
             <flux:spacer />
 
-            <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
-                </flux:navlist.item>
-
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
-                </flux:navlist.item>
-            </flux:navlist>
-
             <!-- Desktop User Menu -->
             <flux:dropdown position="bottom" align="start">
                 <flux:profile
@@ -56,6 +46,28 @@
                             </div>
                         </div>
                     </flux:menu.radio.group>
+
+                    <flux:menu.separator />
+
+                    <flux:menu.radio.group>
+                        <flux:menu.item :href="route('business.index')" icon="briefcase" wire:navigate>{{ __('Manage Business') }}</flux:menu.item>
+                    </flux:menu.radio.group>
+
+                    @if (Auth::user()->businesses()->count() >= 1)
+                        @foreach (Auth::user()->businesses()->get() as $business)
+                            @if (Auth::user()->isAdmin($business))
+                            <flux:menu.separator />
+                                <flux:menu.radio.group>
+                                    <flux:menu.item :href="route('payment-links.index', ['business' => $business->id])" icon="link" wire:navigate>
+                                        {{ $business->name }} – {{ __('Payment Links') }}
+                                    </flux:menu.item>
+                                </flux:menu.radio.group>
+                                <flux:menu.item :href="route('business.team', $business)" icon="users" wire:navigate>
+                                    {{ $business->name }} – {{ __('Team') }}
+                                </flux:menu.item>
+                            @endif                            
+                        @endforeach
+                    @endif
 
                     <flux:menu.separator />
 
