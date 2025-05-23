@@ -20,6 +20,7 @@ class Checkout extends Component
 
     public function mount(PaymentLink $paymentLink)
     {
+        abort_unless($paymentLink->business->users->where('pivot.role', 'admin')->first()->stripe_account_id, 403, 'You need to connect your Stripe account first.');
         $this->link = $paymentLink->load('business');
     }
 
