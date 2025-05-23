@@ -28,7 +28,7 @@
                             {{ $link->title }}
                         </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                            {{ Number::currency($link->amount, $link->business->currency) }} &middot;
+                            {{ Illuminate\Support\Facades\Number::currency($link->amount, $link->business->currency) }} &middot;
                             {{ $link->sales_count }} sales
                         </p>
                     </div>
