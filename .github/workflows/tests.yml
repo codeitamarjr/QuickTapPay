@@ -13,6 +13,21 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mariadb:10.6
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test_database
+          MYSQL_USER: test_user
+          MYSQL_PASSWORD: test_password
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
     environment: Testing
 
     steps:
