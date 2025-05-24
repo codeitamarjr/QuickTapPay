@@ -168,19 +168,19 @@
                 @foreach ($sales as $sale)
                     <tr class="border-b dark:border-gray-700">
                         <th scope="row"
-                            class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <div class="text-sm/6 text-gray-500">{{ $sale->paymentLink->business->name }}</div>
-                            <div class="text-sm/6 text-gray-900">{{ $sale->paymentLink->title }}</div>
-                            <div class="mt-1 text-xs/5 text-gray-500">{{ $sale->transaction_id }}</div>
+                            class="px-4 py-3 font-medium text-gray-900 dark:text-gray-200 whitespace-nowrap dark:text-white">
+                            <div class="text-sm/6 text-gray-500 dark:text-gray-400">{{ $sale->paymentLink->business->name }}</div>
+                            <div class="text-sm/6 text-gray-900 dark:text-gray-200">{{ $sale->paymentLink->title }}</div>
+                            <div class="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">{{ $sale->transaction_id }}</div>
                         </th>
                         <td class="px-4 py-3">
-                            <div class="text-sm/6 text-gray-900">{{ $sale->name }}</div>
-                            <div class="text-sm/6 text-gray-900">{{ $sale->phone }}</div>
-                            <div class="mt-1 text-xs/5 text-gray-500">{{ $sale->email }}</div>
+                            <div class="text-sm/6 text-gray-900 dark:text-gray-200">{{ $sale->name }}</div>
+                            <div class="text-sm/6 text-gray-900 dark:text-gray-200">{{ $sale->phone }}</div>
+                            <div class="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">{{ $sale->email }}</div>
                         </td>
                         <td class="px-4 py-3">
-                            <div class="text-sm/6 text-gray-900">{{ $sale->created_at->format('d/m/Y') }}</div>
-                            <div class="mt-1 text-xs/5 text-gray-500">{{ $sale->created_at->format('H:i') }}</div>
+                            <div class="text-sm/6 text-gray-900 dark:text-gray-200">{{ $sale->created_at->format('d/m/Y') }}</div>
+                            <div class="mt-1 text-xs/5 text-gray-500 dark:text-gray-400">{{ $sale->created_at->format('H:i') }}</div>
                         </td>
                         <td class="px-4 py-3">
                             @php
@@ -229,15 +229,15 @@
                                                 </div>
                                             @endif
                                         </li>
-                                        <li>
+                                        {{-- <li>
                                             <a href="#"
                                                 class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
-                                    <div class="py-1">
+                                    {{-- <div class="py-1">
                                         <a href="#"
                                             class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </td>
