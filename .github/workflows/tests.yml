@@ -29,7 +29,6 @@ jobs:
           --health-timeout=5s
           --health-retries=3
     environment: Testing
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,14 +43,30 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "22"
+          cache: "npm"
+
+      - name: Cache Node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-
 
       - name: Install Node Dependencies
-        run: npm i
+        run: npm ci
 
       - name: Add Flux Credentials Loaded From ENV
         run: composer config http-basic.composer.fluxui.dev "${{ secrets.FLUX_USERNAME }}" "${{ secrets.FLUX_LICENSE_KEY }}"
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            composer-
 
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
