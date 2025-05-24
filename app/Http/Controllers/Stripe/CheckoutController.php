@@ -23,20 +23,6 @@ class CheckoutController extends Controller
             return redirect()->route('home')->with('error', 'Missing session ID.');
         }
 
-        Stripe::setApiKey(config('services.stripe.secret'));
-
-        $session = Session::retrieve($sessionId);
-        $paymentIntent = PaymentIntent::retrieve($session->payment_intent);
-
-        $sale = Sale::where('stripe_session_id', $session->id)->firstOrFail();
-
-        if ($sale->status !== 'paid') {
-            $sale->update([
-                'status' => 'paid',
-                'payment_method' => $paymentIntent->payment_method_types[0] ?? 'card',
-            ]);
-        }
-
         return App::call(SalesSuccess::class);
     }
 

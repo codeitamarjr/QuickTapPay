@@ -26,6 +26,7 @@ class CheckoutCompleted
         if ($sale && $sale->status !== 'paid') {
             $sale->update([
                 'status' => 'paid',
+                'stripe_payment_intent_id' => $session->payment_intent,
                 'payment_method' => $session->payment_method_types[0] ?? 'card',
             ]);
 

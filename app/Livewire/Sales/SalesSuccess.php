@@ -22,10 +22,7 @@ class SalesSuccess extends Component
 
         $session_id = $validated['session_id'];
         $this->sale = Sale::where('stripe_session_id', $session_id)->firstOrFail();
-
-        if ($this->sale->status !== 'paid') {
-            $this->sale->update(['status' => 'paid']);
-        }
+        abort_if($this->sale->status === 'refunded', 403, 'This sale has been refunded.');
 
         $this->link = $this->sale->paymentLink;
     }

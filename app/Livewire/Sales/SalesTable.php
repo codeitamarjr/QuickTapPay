@@ -6,6 +6,7 @@ use App\Models\Sale;
 use Livewire\Component;
 use \Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
+use App\Services\Stripe\RefundService;
 
 class SalesTable extends Component
 {
@@ -15,6 +16,9 @@ class SalesTable extends Component
     public $perPage = 10;
     public $sortBy = 'created_at';
     public $sortDirection = 'desc';
+    public bool $showRefundModal = false;
+    public ?Sale $selectedSale = null;
+
 
     public function sort($column)
     {
@@ -62,6 +66,29 @@ class SalesTable extends Component
     {
         sleep(3);
         $this->resetPage();
+    }
+
+    public function refund(Sale $sale, RefundService $refundService)
+    {
+        abort_unless($sale->paymentLink->business->users->where('pivot.role', 'admin')->first()?->stripe_account_id, 403, 'You need to connect your Stripe account first.');
+        abort_if($sale->status !== 'paid', 403, 'This sale has not been paid.');
+        abort_if($sale->status === 'refunded', 403, 'This sale has already been refunded.');
+
+        $this->showRefundModal = true;
+        $this->selectedSale = $sale;
+    }
+
+    public function confirmRefund(RefundService $refundService)
+    {
+        try {
+            $refundService->process($this->selectedSale);
+            session()->flash('success', 'Refund issued successfully.');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Refund failed: ' . $e->getMessage());
+        }
+
+        $this->showRefundModal = false;
+        $this->selectedSale = null;
     }
 
     public function render()
