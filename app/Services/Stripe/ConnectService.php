@@ -106,6 +106,8 @@ class ConnectService
             Log::info("Attempting to delete Stripe account for user {$user->id}: {$user->stripe_account_id}");
 
             $stripe->accounts->delete($user->stripe_account_id);
+            $this->disconnect($user);
+            
             Log::info("Stripe account deleted successfully for user {$user->id}.");
 
             return true;
