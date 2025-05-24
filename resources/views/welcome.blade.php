@@ -42,10 +42,7 @@
                         @if (Route::has('login'))
                             <nav class="flex items-center justify-end gap-4">
                                 @auth
-                                    <a href="{{ url('/dashboard') }}"
-                                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                        Dashboard
-                                    </a>
+                                    <a href="{{ url('/dashboard') }}" class="text-sm/6 font-semibold text-gray-900">Dashboard</a>
                                 @else
                                     <a href="{{ route('login') }}" class="text-sm/6 font-semibold text-gray-900">Log in</a>
                                 @endauth
@@ -56,7 +53,7 @@
             </div>
         </div>
         <!-- Mobile menu, show/hide based on menu open state. -->
-        <div class="lg:hidden" x-data="{ navigationBar: true }">
+        <div class="lg:hidden" x-data="{ navigationBar: false }">
             <!-- Background backdrop, show/hide based on slide-over state. -->
             <div class="fixed inset-0 z-50" @click="navigationBar = !navigationBar"></div>
             <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
@@ -90,9 +87,14 @@
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Marketplace</a>
                             <a href="#"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Company</a>
-                            <a href="{{ route('login') }}"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Log
-                                in</a>
+                            @auth
+                                <a href="{{ url('/dashboard') }}"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Dashboard</a>
+                            @else
+                                <a href="{{ route('login') }}"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
+                                    Log in</a>
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -108,7 +110,7 @@
                     <polygon points="0,0 90,0 50,100 0,100" />
                 </svg>
 
-                <div class="relative px-6 py-32 sm:py-40 lg:px-8 lg:py-56 lg:pr-0">
+                <div class="relative px-6 py-32 sm:py-40 lg:px-8 lg:py-50 lg:pr-0">
                     <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
                         <div class="hidden sm:mb-10 sm:flex">
                             <div
@@ -134,10 +136,17 @@
                             <li>✔ Stripe Connect integration – no compliance hassle</li>
                         </ul>
                         <div class="mt-10 flex items-center gap-x-6">
-                            <a href="{{ route('register') }}"
-                                class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                Get tarted
-                            </a>
+                            @auth
+                                <a href="{{ url('/dashboard') }}"
+                                    class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                    Dashboard
+                                </a>
+                            @else
+                                <a href="{{ route('register') }}"
+                                    class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                    Get tarted
+                                </a>
+                            @endauth
                             <a href="#" class="text-sm/6 font-semibold text-gray-900">Learn more <span
                                     aria-hidden="true">→</span></a>
                         </div>
