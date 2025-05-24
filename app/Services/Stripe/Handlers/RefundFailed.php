@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * File: RefundFailed.php
+ * © 2025 Itamar Atanasio Da Silva Junior. All rights reserved.
+ * This file is part of the Quick Tap Pay proprietary software.
+ * Unauthorized copying or distribution of this file, via any medium, is strictly prohibited.
+ */
+
 namespace App\Services\Stripe\Handlers;
 
 use App\Services\Stripe\Handlers\RefundUpdated;

@@ -78,4 +78,12 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## License
 
-Not published yet.
+This project is proprietary and all rights are reserved by Itamar Junior.  
+You may not copy, modify, distribute, sublicense, or reuse any part of this project without explicit written permission.
+
+For licensing inquiries or business partnerships, please contact: [hello@itjunior.dev]
+
+## Notice
+
+This project is a personal commercial product under development and not open-source.  
+Unauthorized use or distribution is strictly prohibited.
