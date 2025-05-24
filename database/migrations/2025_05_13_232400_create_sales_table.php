@@ -15,19 +15,25 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('business_id')->constrained()->onDelete('cascade');
-            $table->foreignId('payment_link_id')->constrained()->onDelete('cascade');
-            $table->decimal('amount', 8, 2);
-            $table->string('currency')->default('EUR');
-            $table->string('name')->nullable();
-            $table->string('email');
-            $table->string('phone');
-            $table->string('reference')->nullable();
-            $table->string('status')->default('pending'); // 'pending', 'paid', 'failed'
-            $table->string('transaction_id')->nullable();
+            $table->foreignId('business_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('payment_link_id')->constrained()->cascadeOnDelete();
+
+            $table->decimal('amount', 10, 2)->index();
+            $table->char('currency', 3)->default('EUR')->index();
+
+            $table->string('name')->index();
+            $table->string('email')->index();
+            $table->string('phone')->index();
+            $table->string('reference')->nullable()->index();
+
+            $table->enum('status', ['pending', 'paid', 'failed', 'refunded', 'cancelled'])->default('pending')->index();
+            $table->string('transaction_id', 36)->unique()->nullable();
             $table->string('payment_method')->default('card'); // 'card', 'paypal', 'bank_transfer'
-            $table->string('stripe_session_id')->nullable();
-            $table->string('stripe_payment_intent_id')->nullable();
+
+            $table->string('stripe_session_id')->nullable()->unique();
+            $table->string('stripe_payment_intent_id')->nullable()->unique();
+
+            $table->fullText(['name', 'email', 'phone', 'reference', 'transaction_id']);
         });
     }
 

@@ -31,15 +31,17 @@
                         </p>
                     </div>
 
-                    <div class="flex gap-2">
-                        <a href="{{ route('business.edit', $business->id) }}">
-                            <flux:button size="sm" variant="outline">{{ __('Edit') }}</flux:button>
-                        </a>
-                        <flux:button size="sm" variant="outline" class="!text-red-600 hover:!bg-red-100"
-                            wire:click="confirmDelete({{ $business->id }})">
-                            {{ __('Delete') }}
-                        </flux:button>
-                    </div>
+                    @if (Auth::user()->isAdmin($business))
+                        <div class="flex gap-2">
+                            <a href="{{ route('business.edit', $business->id) }}">
+                                <flux:button size="sm" variant="outline">{{ __('Edit') }}</flux:button>
+                            </a>
+                            <flux:button size="sm" variant="outline" class="!text-red-600 hover:!bg-red-100"
+                                wire:click="confirmDelete({{ $business->id }})">
+                                {{ __('Delete') }}
+                            </flux:button>
+                        </div>
+                    @endif
                 </div>
             @empty
                 <flux:text>{{ __('No businesses found.') }}</flux:text>

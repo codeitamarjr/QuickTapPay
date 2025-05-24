@@ -19,12 +19,13 @@ class Sales extends Component
             ->whereHas('paymentLink.business.users', function ($query) use ($user) {
                 $query->where('users.id', $user->id);
             })
+            ->where('status', 'paid')
             ->groupBy('currency')
             ->orderByDesc('total')
             ->first();
 
-        $this->topCurrency = $topCurrency->currency;
-        $this->topCurrencyTotal = $topCurrency->total;
+        $this->topCurrency = $topCurrency->currency ?? 'EUR';
+        $this->topCurrencyTotal = $topCurrency->total ?? 0;
     }
     public function render()
     {
