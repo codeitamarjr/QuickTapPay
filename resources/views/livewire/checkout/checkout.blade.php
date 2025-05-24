@@ -12,7 +12,7 @@
          {{ __('Secure payment for :service', ['service' => $link->title]) }}
      </x-slot>
 
-     {{-- Your checkout form starts here --}}
+     {{-- Checkout form starts here --}}
      <div class="bg-gray-50">
          <div class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
              <form wire:submit.prevent="submit" class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
@@ -61,7 +61,8 @@
                              <label for="reference" class="block text-sm font-medium text-gray-700">Reference</label>
                              <div class="mt-2">
                                  <input type="text" id="reference" wire:model.defer="reference"
-                                     class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600 sm:text-sm">
+                                     class="block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600 sm:text-sm"
+                                     required>
                                  @error('reference')
                                      <span class="text-sm text-red-600">{{ $message }}</span>
                                  @enderror
@@ -107,6 +108,13 @@
                                  class="w-full rounded-md bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">
                                  Confirm and Pay
                              </button>
+                             <span class="text-xs text-gray-500">By clicking "Confirm and Pay", you agree to the
+                                 <a href="{{ route('terms.of.service') }}" class="font-medium text-indigo-600 hover:text-indigo-500" _target="_blank">Terms and
+                                     Conditions</a>,
+                                 and acknowledge that you have read and understand our <a href="{{ route('privacy.policy') }}"
+                                     class="font-medium text-indigo-600 hover:text-indigo-500" _target="_blank">Privacy Policy</a> and <a href="{{ route('vendor.disclaimer') }}"
+                                     class="font-medium text-indigo-600 hover:text-indigo-500" _target="_blank">Vendor Disclaimer</a>.
+                             </span>
                          </div>
                      </div>
                  </div>

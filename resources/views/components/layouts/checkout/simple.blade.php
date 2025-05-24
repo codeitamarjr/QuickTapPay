@@ -50,8 +50,15 @@
 
         <!-- Footer -->
         <footer class="bg-white border-t mt-8">
-            <div class="max-w-7xl mx-auto py-6 px-4 text-sm text-gray-500 text-center">
-                &copy; {{ now()->year }} {{ config('app.name', 'QuickTapPay') }}. All rights reserved.
+            <div class="max-w-7xl mx-auto py-6 px-4 text-sm text-gray-500 text-center space-y-2">
+                <div class="space-x-4">
+                    <a href="{{ route('privacy.policy') }}" class="font-medium text-indigo-600 hover:text-indigo-500">Privacy Policy</a>
+                    <a href="{{ route('terms.of.service') }}" class="font-medium text-indigo-600 hover:text-indigo-500">Terms of Service</a>
+                    <a href="{{ route('vendor.disclaimer') }}" class="font-medium text-indigo-600 hover:text-indigo-500">Vendor Disclaimer</a>
+                </div>
+                <div>
+                    &copy; {{ now()->year }} {{ config('app.name', 'QuickTapPay') }}. All rights reserved.
+                </div>
             </div>
         </footer>
     </div>

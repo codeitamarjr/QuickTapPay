@@ -35,10 +35,12 @@
                         </svg>
                     </button>
                     <div class="hidden lg:ml-12 lg:flex lg:gap-x-14">
-                        <a href="{{ route('terms') }}" class="text-sm/6 font-semibold text-gray-900"
-                            wire:navigate>Terms</a>
-                        <a href="{{ route('privacy') }}" class="text-sm/6 font-semibold text-gray-900"
-                            wire:navigate>Privacy</a>
+                        <a href="{{ route('terms.of.service') }}" class="text-sm/6 font-semibold text-gray-900"
+                            wire:navigate>Terms of Use</a>
+                        <a href="{{ route('privacy.policy') }}" class="text-sm/6 font-semibold text-gray-900"
+                            wire:navigate>Privacy Policy</a>
+                        <a href="{{ route('vendor.disclaimer') }}" class="text-sm/6 font-semibold text-gray-900"
+                            wire:navigate>Vendor Disclaimer</a>
                         @if (Route::has('login'))
                             <nav class="flex items-center justify-end gap-4">
                                 @auth
@@ -81,10 +83,12 @@
                 <div class="mt-6 flow-root">
                     <div class="-my-6 divide-y divide-gray-500/10">
                         <div class="space-y-2 py-6">
-                            <a href="{{ route('terms') }}"
+                            <a href="{{ route('terms.of.service') }}"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Terms</a>
-                            <a href="{{ route('privacy') }}"
+                            <a href="{{ route('privacy.policy') }}"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Privacy</a>
+                            <a href="{{ route('vendor.disclaimer') }}"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Vendor</a>
                             @auth
                                 <a href="{{ url('/dashboard') }}"
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Dashboard</a>

@@ -9,13 +9,17 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/terms', function () {
+Route::get('/terms-of-service', function () {
     return view('terms');
-})->name('terms');
+})->name('terms.of.service');
 
-Route::get('/privacy', function () {
+Route::get('/privacy-policy', function () {
     return view('privacy');
-})->name('privacy');
+})->name('privacy.policy');
+
+Route::get('/vendor-disclaimer', function () {
+    return view('disclaimer');
+})->name('vendor.disclaimer');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
