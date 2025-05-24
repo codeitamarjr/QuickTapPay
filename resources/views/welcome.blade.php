@@ -35,14 +35,13 @@
                         </svg>
                     </button>
                     <div class="hidden lg:ml-12 lg:flex lg:gap-x-14">
-                        <a href="#" class="text-sm/6 font-semibold text-gray-900">Product</a>
-                        <a href="#" class="text-sm/6 font-semibold text-gray-900">Features</a>
-                        <a href="#" class="text-sm/6 font-semibold text-gray-900">Marketplace</a>
-                        <a href="#" class="text-sm/6 font-semibold text-gray-900">Company</a>
+                        <a href="{{ route('terms') }}" class="text-sm/6 font-semibold text-gray-900">Terms</a>
+                        <a href="{{ route('privacy') }}" class="text-sm/6 font-semibold text-gray-900">Privacy</a>
                         @if (Route::has('login'))
                             <nav class="flex items-center justify-end gap-4">
                                 @auth
-                                    <a href="{{ url('/dashboard') }}" class="text-sm/6 font-semibold text-gray-900">Dashboard</a>
+                                    <a href="{{ url('/dashboard') }}"
+                                        class="text-sm/6 font-semibold text-gray-900">Dashboard</a>
                                 @else
                                     <a href="{{ route('login') }}" class="text-sm/6 font-semibold text-gray-900">Log in</a>
                                 @endauth
