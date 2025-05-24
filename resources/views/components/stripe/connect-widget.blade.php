@@ -7,19 +7,64 @@
             Stripe account connected successfully.
         </p>
 
-        <form action="{{ route('stripe.disconnect') }}" method="POST">
-            @csrf
-            <button type="submit"
-                class="inline-flex font-medium items-center text-red-600 hover:underline">
-                Disconnect
-                <svg class="w-3 h-3 ms-2.5 rtl:rotate-[270deg]" xmlns="http://www.w3.org/2000/svg"
-                    fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </form>
+        <flux:modal.trigger name="confirm-stripe-disconnect">
+        <flux:button variant="danger" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-stripe-disconnect')">
+            {{ __('Disconnect') }}
+        </flux:button>
+        </flux:modal.trigger>
+
+        <flux:modal name="confirm-stripe-disconnect" :show="$errors->isNotEmpty()" focusable class="max-w-lg">
+            <form action="{{ route('stripe.disconnect') }}" method="POST" class="space-y-6">
+                 @csrf
+                <div>
+                    <flux:heading size="lg">{{ __('Are you sure you want to disconnect your Stripe account?') }}</flux:heading>
+
+                    <flux:subheading>
+                        {{ __('Once your account is disconnected, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently disconnect your Stripe account.') }}
+                    </flux:subheading>
+                </div>
+
+                <flux:input wire:model="password" :label="__('Password')" type="password" />
+
+                <div class="flex justify-end space-x-2 rtl:space-x-reverse">
+                    <flux:modal.close>
+                        <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
+                    </flux:modal.close>
+
+                    <flux:button variant="danger" type="submit">{{ __('Disconnect account') }}</flux:button>
+                </div>
+            </form>
+        </flux:modal>
+
+        <flux:modal.trigger name="confirm-stripe-delete">
+        <flux:button variant="danger" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-stripe-delete')">
+            {{ __('Delete') }}
+        </flux:button>
+        </flux:modal.trigger>
+
+        <flux:modal name="confirm-stripe-delete" :show="$errors->isNotEmpty()" focusable class="max-w-lg">
+            <form action="{{ route('stripe.delete') }}" method="POST" class="space-y-6">
+                 @csrf
+                <div>
+                    <flux:heading size="lg">{{ __('Are you sure you want to delete your Stripe account?') }}</flux:heading>
+
+                    <flux:subheading>
+                        {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your Stripe account.') }}
+                    </flux:subheading>
+                </div>
+
+                <flux:input wire:model="password" :label="__('Password')" type="password" />
+
+                <div class="flex justify-end space-x-2 rtl:space-x-reverse">
+                    <flux:modal.close>
+                        <flux:button variant="filled">{{ __('Cancel') }}</flux:button>
+                    </flux:modal.close>
+
+                    <flux:button variant="danger" type="submit">{{ __('Disconnect account') }}</flux:button>
+                </div>
+            </form>
+        </flux:modal>
+
     @else
         <p class="font-normal text-gray-500 dark:text-gray-400">
             Connect your Stripe account to start receiving payments.

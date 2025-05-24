@@ -6,6 +6,8 @@ use Stripe\Stripe;
 use Stripe\Account;
 use App\Models\User;
 use Stripe\AccountLink;
+use Stripe\StripeClient;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
@@ -39,20 +41,6 @@ class ConnectService
         ]);
 
         return $accountLink->url;
-
-        // $params = [
-        //     'response_type' => 'code',
-        //     'client_id' => config('services.stripe.client_id'),
-        //     'scope' => 'read_write',
-        //     'redirect_uri' => route('stripe.connect.callback'),
-        //     'stripe_user[email]' => $userData['email'] ?? null,
-        //     'stripe_user[business_name]' => $userData['business_name'] ?? null,
-        //     'stripe_user[url]' => $userData['url'] ?? null,
-        //     'stripe_user[country]' => $userData['country'] ?? 'IE',
-        //     'state' => $state ?? csrf_token(),
-        // ];
-
-        // return 'https://connect.stripe.com/oauth/authorize?' . http_build_query(array_filter($params));
     }
 
     public function fetchConnectedAccountId(string $authorizationCode): string
@@ -77,5 +65,61 @@ class ConnectService
         ]);
 
         return true;
+    }
+
+    /**
+     * Disconnect a user from their Stripe account.
+     *
+     * This method updates the user's model by setting `stripe_account_id` to null and `stripe_ready` to false.
+     *
+     * @param User $user The user to disconnect from Stripe.
+     *
+     * @return void
+     */
+    public function disconnect(User $user): void
+    {
+        $user->update([
+            'stripe_account_id' => null,
+            'stripe_ready' => false,
+        ]);
+
+        Log::info("User {$user->id} disconnected from Stripe.");
+    }
+
+    /**
+     * Delete a user's connected Stripe account.
+     *
+     * This method attempts to delete the Stripe account associated with the given user.
+     * If the account is already inaccessible (e.g., due to being deleted from the Stripe dashboard),
+     * it logs a warning and treats the operation as a successful cleanup. In case of any errors,
+     * it logs the error details and returns false.
+     *
+     * @param User $user The user whose Stripe account is to be deleted.
+     * 
+     * @return bool True if the account was deleted successfully or already inaccessible, false otherwise.
+     */
+    public function deleteConnectedAccount(User $user): bool
+    {
+        $stripe = new StripeClient(config('services.stripe.secret'));
+
+        try {
+            Log::info("Attempting to delete Stripe account for user {$user->id}: {$user->stripe_account_id}");
+
+            $stripe->accounts->delete($user->stripe_account_id);
+            Log::info("Stripe account deleted successfully for user {$user->id}.");
+
+            return true;
+        } catch (\Stripe\Exception\InvalidRequestException $e) {
+            if (str_contains($e->getMessage(), 'does not have access')) {
+                Log::warning("Stripe account {$user->stripe_account_id} already inaccessible.");
+                return true;
+            }
+
+            Log::error("Stripe error deleting account: " . $e->getMessage());
+            return false;
+        } catch (\Exception $e) {
+            Log::error("General error deleting Stripe account: " . $e->getMessage());
+            return false;
+        }
     }
 }
