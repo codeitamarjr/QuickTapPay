@@ -108,6 +108,45 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl p-2">
+                            <div class="rounded-2xl p-8 ring-1 ring-gray-200" x-data="{ amount: 50 }">
+                                <h3 id="tier-hobby" class="text-lg/8 font-semibold text-gray-900">
+                                    Estimate Your Fees
+                                </h3>
+                                <p class="mt-4 text-sm/6 text-gray-600">
+                                    Simulate how much you will pay to get started, for standard European Economic Area
+                                    cards.
+                                </p>
+                                <p class="mt-6 flex items-baseline">
+                                    <span class="text-4xl font-semibold tracking-tight text-gray-900">
+                                        <input type="number" step="0.01" min="0" x-model.number="amount"
+                                            class="mt-1 block w-24 appearance-none bg-transparent border-none text-gray-700 py-2 px-2 leading-tight focus:border-indigo-500 focus:ring-indigo-500"
+                                            type="text" placeholder="Jane Doe" aria-label="Full name">
+                                    </span>
+                                    <span class="text-sm/6 font-semibold text-gray-600">/transaction</span>
+                                </p>
+                                <ul role="list" class="mt-8 space-y-3 text-sm/6 text-gray-600">
+                                    <li class="flex gap-x-3">
+                                        €<span x-text="(amount * 0.01).toFixed(2)"></span>
+                                        QuickTapPay Fee (1%)
+                                    </li>
+                                    <li class="flex gap-x-3">
+                                        €<span x-text="(amount * 0.015 + 0.25).toFixed(2)"></span>
+                                        Stripe Fee (EEA) - 1.5% + €0.25
+                                    </li>
+                                    <li class="flex gap-x-3">
+                                        €<span
+                                            x-text="(amount - (amount * 0.01) - (amount * 0.015 + 0.25)).toFixed(2)"></span>
+                                        You Receive (Net)
+                                    </li>
+                                </ul>
+                                <p class="mt-6 text-sm/6 text-gray-600">
+                                    For a complete list of charges and details please visit <a class="text-indigo-600"
+                                        href="https://stripe.com/ie/pricing" target="_blank">Stripe</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

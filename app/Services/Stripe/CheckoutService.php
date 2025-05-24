@@ -45,7 +45,7 @@ class CheckoutService
 
         $platformAccountId = config('services.stripe.account_id');
 
-        $applicationFeeAmount = (int) round($link->amount * 0.1 * 100);
+        $applicationFeeAmount = (int) round($link->amount * 0.01 * 100);
         $lineAmount = (int) round($link->amount * 100);
 
         Stripe::setApiKey(config('services.stripe.secret'));
