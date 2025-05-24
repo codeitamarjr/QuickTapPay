@@ -121,8 +121,9 @@
                                 <p class="mt-6 flex items-baseline">
                                     <span class="text-4xl text-gray-600">€</span>
                                     <span class="text-4xl font-semibold">
-                                        <input type="number" step="0.01" min="0" x-model.number="amount"
-                                            class="mt-1 block w-16 bg-transparent border-none text-gray-700 py-2 px-2 leading-tight focus:border-indigo-500 focus:ring-indigo-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                        <input type="number" step="0.01" min="0" x-model="amount"
+                                            :style="'width: ' + ((amount || '').length + 1) + 'ch'"
+                                            class="w-16 bg-transparent border-none text-gray-700 py-2 px-2 leading-tight focus:border-indigo-500 focus:ring-indigo-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                             placeholder="price" aria-label="price">
                                     </span>
                                     <span class="text-sm/6 font-semibold text-gray-600">/transaction</span>
