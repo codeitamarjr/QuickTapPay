@@ -59,8 +59,20 @@ jobs:
       - name: Copy Environment File
         run: cp .env.example .env
 
+      - name: Set Laravel Environment for Testing
+        run: |
+          echo "DB_CONNECTION=mysql" >> .env
+          echo "DB_HOST=127.0.0.1" >> .env
+          echo "DB_PORT=3306" >> .env
+          echo "DB_DATABASE=test_database" >> .env
+          echo "DB_USERNAME=test_user" >> .env
+          echo "DB_PASSWORD=test_password" >> .env
+
       - name: Generate Application Key
         run: php artisan key:generate
+
+      - name: Run Migrations
+        run: php artisan migrate --force
 
       - name: Build Assets
         run: npm run build
