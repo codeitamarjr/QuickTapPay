@@ -4,6 +4,7 @@ namespace App\Services\Stripe\Handlers;
 
 use App\Models\Sale;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutCompleted
 {
@@ -29,6 +30,8 @@ class CheckoutCompleted
                 'stripe_payment_intent_id' => $session->payment_intent,
                 'payment_method' => $session->payment_method_types[0] ?? 'card',
             ]);
+
+            Mail::to($sale->email)->queue(new \App\Mail\SaleNotification($sale, 'paid'));
 
             Log::info("Sale {$sale->id} marked as PAID via webhook.");
         }

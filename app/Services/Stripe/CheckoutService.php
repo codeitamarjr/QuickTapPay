@@ -8,6 +8,7 @@ use Stripe\StripeClient;
 use App\Models\PaymentLink;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Mail;
 use Stripe\Checkout\Session as StripeSession;
 
 class CheckoutService
@@ -82,7 +83,7 @@ class CheckoutService
         $session = StripeSession::create($sessionPayload);
 
         // Save the sale
-        Sale::create([
+        $sale = Sale::create([
             'business_id' => $businessId,
             'payment_link_id' => $link->id,
             'amount' => $link->amount,
@@ -100,6 +101,8 @@ class CheckoutService
             'stripe_session_id' => $session->id,
             'stripe_payment_intent_id' =>  $session->payment_intent,
         ]);
+
+        Mail::to($sale->email)->queue(new \App\Mail\SaleNotification($sale, 'created'));
 
         return $session->url;
     }
