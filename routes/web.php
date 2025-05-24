@@ -21,6 +21,10 @@ Route::get('/vendor-disclaimer', function () {
     return view('disclaimer');
 })->name('vendor.disclaimer');
 
+Route::get('/pricing', function () {
+    return view('pricing');
+})->name('pricing');
+
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');

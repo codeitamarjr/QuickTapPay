@@ -34,13 +34,13 @@
                                 d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
                     </button>
-                    <div class="hidden lg:ml-12 lg:flex lg:gap-x-14">
+                    <div class="hidden lg:ml-12 lg:flex lg:gap-x-14 whitespace-nowrap">
+                        <a href="{{ route('pricing') }}" class="text-sm/6 font-semibold text-gray-900"
+                            wire:navigate>Pricing</a>
                         <a href="{{ route('terms.of.service') }}" class="text-sm/6 font-semibold text-gray-900"
                             wire:navigate>Terms of Use</a>
                         <a href="{{ route('privacy.policy') }}" class="text-sm/6 font-semibold text-gray-900"
                             wire:navigate>Privacy Policy</a>
-                        <a href="{{ route('vendor.disclaimer') }}" class="text-sm/6 font-semibold text-gray-900"
-                            wire:navigate>Vendor Disclaimer</a>
                         @if (Route::has('login'))
                             <nav class="flex items-center justify-end gap-4">
                                 @auth
@@ -83,6 +83,8 @@
                 <div class="mt-6 flow-root">
                     <div class="-my-6 divide-y divide-gray-500/10">
                         <div class="space-y-2 py-6">
+                            <a href="{{ route('pricing') }}"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Pricing</a>
                             <a href="{{ route('terms.of.service') }}"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Terms</a>
                             <a href="{{ route('privacy.policy') }}"
@@ -106,6 +108,20 @@
 
     <!-- Page Content Here -->
     @yield('content')
+
+    <footer class="bg-white border-t mt-auto">
+    <div class="max-w-7xl mx-auto px-4 py-6 text-sm text-gray-500 text-center space-y-2">
+        <nav class="space-x-4">
+            <a href="{{ route('pricing') }}" class="text-md hover:text-indigo-600 transition">Pricing</a>
+            <a href="{{ route('privacy.policy') }}" class="text-md hover:text-indigo-600 transition">Privacy Policy</a>
+            <a href="{{ route('terms.of.service') }}" class="text-md hover:text-indigo-600 transition">Terms of Service</a>
+            <a href="{{ route('vendor.disclaimer') }}" class="text-md hover:text-indigo-600 transition">Vendor Disclaimer</a>
+        </nav>
+        <div>
+            &copy; {{ now()->year }} {{ config('app.name', 'QuickTapPay') }}. All rights reserved.
+        </div>
+    </div>
+</footer>
 
     @livewireScripts
 </body>

@@ -2,14 +2,14 @@
 @section('title', 'Welcome to QuickTapPay')
 @section('content')
 
-    <div class="relative">
+    <div class="relative h-screen overflow-hidden">
         <div class="mx-auto max-w-7xl">
             <div class="relative z-10 lg:w-full lg:max-w-2xl">
                 <svg class="absolute inset-y-0 right-8 hidden h-full w-80 translate-x-1/2 transform fill-white lg:block"
                     viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                     <polygon points="0,0 90,0 50,100 0,100" />
                 </svg>
-                <div class="relative px-6 py-32 sm:py-40 lg:px-8 lg:py-50 lg:pr-0">
+                <div class="relative lg:h-screen px-6 py-32 sm:py-40 lg:px-8 lg:py-50 lg:pr-0">
                     <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
                         <div class="hidden sm:mb-10 sm:flex">
                             <div
@@ -28,13 +28,6 @@
                             Track
                             sales, manage transactions, and get paid with ease.
                         </p>
-                        <ul class="mt-6 space-y-1 text-base text-gray-700">
-                            <li>✔ Create & share one-click payment links</li>
-                            <li>✔ Accept payments securely with Stripe</li>
-                            <li>✔ Track successful and failed transactions</li>
-                            <li>✔ Vendor dashboard to manage your earnings</li>
-                            <li>✔ Stripe Connect integration – no compliance hassle</li>
-                        </ul>
                         <div class="mt-10 flex items-center gap-x-6">
                             @auth
                                 <a href="{{ url('/dashboard') }}"
