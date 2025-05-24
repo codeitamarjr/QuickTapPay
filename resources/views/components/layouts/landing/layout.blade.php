@@ -17,7 +17,7 @@
 </head>
 
 <body class="bg-white dark:bg-zinc-800">
-    <header class="absolute inset-x-0 top-0 z-50">
+    <header class="absolute inset-x-0 top-0 z-50" x-data="{ navigationBar: false }">
         <div class="mx-auto max-w-7xl">
             <div class="px-6 pt-6 lg:max-w-2xl lg:pl-8 lg:pr-0">
                 <nav class="flex items-center justify-between lg:justify-start" aria-label="Global">
@@ -26,9 +26,9 @@
                         <img alt="{{ config('app.name') }}" class="h-8 w-auto"
                             src="{{ asset('/favicon/favicon.svg') }}">
                     </a>
-                    <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700 lg:hidden">
+                    <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700 lg:hidden" @click="navigationBar = !navigationBar">
                         <span class="sr-only">Open main menu</span>
-                        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        <svg class="size-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                             aria-hidden="true" data-slot="icon">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -57,9 +57,8 @@
             </div>
         </div>
         <!-- Mobile menu, show/hide based on menu open state. -->
-        <div class="lg:hidden" x-data="{ navigationBar: false }">
+        <div class="lg:hidden">
             <!-- Background backdrop, show/hide based on slide-over state. -->
-            <div class="fixed inset-0 z-50" @click="navigationBar = !navigationBar"></div>
             <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
                 x-show="navigationBar" x-transition:enter="transform ease-out duration-300"
                 x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
@@ -74,7 +73,7 @@
                     <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700"
                         @click="navigationBar = !navigationBar">
                         <span class="sr-only">Close menu</span>
-                        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        <svg class="size-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                             aria-hidden="true" data-slot="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
