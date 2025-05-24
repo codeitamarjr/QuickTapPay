@@ -26,10 +26,11 @@
                         <img alt="{{ config('app.name') }}" class="h-8 w-auto"
                             src="{{ asset('/favicon/favicon.svg') }}">
                     </a>
-                    <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700 lg:hidden" @click="navigationBar = !navigationBar">
+                    <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700 lg:hidden"
+                        @click="navigationBar = !navigationBar">
                         <span class="sr-only">Open main menu</span>
-                        <svg class="size-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                            aria-hidden="true" data-slot="icon">
+                        <svg class="size-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" aria-hidden="true" data-slot="icon">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
@@ -59,7 +60,7 @@
         <!-- Mobile menu, show/hide based on menu open state. -->
         <div class="lg:hidden">
             <!-- Background backdrop, show/hide based on slide-over state. -->
-            <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+            <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-zinc-800 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
                 x-show="navigationBar" x-transition:enter="transform ease-out duration-300"
                 x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
                 x-transition:leave="transform ease-in duration-200" x-transition:leave-start="translate-x-0"
@@ -73,8 +74,8 @@
                     <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700"
                         @click="navigationBar = !navigationBar">
                         <span class="sr-only">Close menu</span>
-                        <svg class="size-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                            aria-hidden="true" data-slot="icon">
+                        <svg class="size-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" aria-hidden="true" data-slot="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -85,11 +86,14 @@
                             <a href="{{ route('pricing') }}"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Pricing</a>
                             <a href="{{ route('terms.of.service') }}"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Terms of Use</a>
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Terms
+                                of Use</a>
                             <a href="{{ route('privacy.policy') }}"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Privacy Policy</a>
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Privacy
+                                Policy</a>
                             <a href="{{ route('vendor.disclaimer') }}"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Vendor Disclaimer</a>
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Vendor
+                                Disclaimer</a>
                             @auth
                                 <a href="{{ url('/dashboard') }}"
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Dashboard</a>
@@ -108,19 +112,22 @@
     <!-- Page Content Here -->
     @yield('content')
 
-    <footer class="bg-white border-t mt-auto">
-    <div class="max-w-7xl mx-auto px-4 py-6 text-sm text-gray-500 text-center space-y-2">
-        <nav class="space-x-4">
-            <a href="{{ route('pricing') }}" class="text-md hover:text-indigo-600 transition">Pricing</a>
-            <a href="{{ route('privacy.policy') }}" class="text-md hover:text-indigo-600 transition">Privacy Policy</a>
-            <a href="{{ route('terms.of.service') }}" class="text-md hover:text-indigo-600 transition">Terms of Service</a>
-            <a href="{{ route('vendor.disclaimer') }}" class="text-md hover:text-indigo-600 transition">Vendor Disclaimer</a>
-        </nav>
-        <div>
-            &copy; {{ now()->year }} {{ config('app.name', 'QuickTapPay') }}. All rights reserved.
+    <footer class="bg-white dark:bg-zinc-800 border-t mt-auto">
+        <div class="max-w-7xl mx-auto px-4 py-6 text-sm text-gray-500 text-center space-y-2">
+            <nav class="space-x-4">
+                <a href="{{ route('pricing') }}" class="text-md hover:text-indigo-600 transition">Pricing</a>
+                <a href="{{ route('privacy.policy') }}" class="text-md hover:text-indigo-600 transition">Privacy
+                    Policy</a>
+                <a href="{{ route('terms.of.service') }}" class="text-md hover:text-indigo-600 transition">Terms of
+                    Service</a>
+                <a href="{{ route('vendor.disclaimer') }}" class="text-md hover:text-indigo-600 transition">Vendor
+                    Disclaimer</a>
+            </nav>
+            <div>
+                &copy; {{ now()->year }} {{ config('app.name', 'QuickTapPay') }}. All rights reserved.
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
     @livewireScripts
 </body>

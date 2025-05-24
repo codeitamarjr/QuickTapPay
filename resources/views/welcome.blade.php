@@ -2,10 +2,10 @@
 @section('title', 'Welcome to QuickTapPay')
 @section('content')
 
-    <div class="relative h-screen overflow-hidden">
+    <div class="relative h-screen overflow-hidden dark:bg-zinc-900">
         <div class="mx-auto max-w-7xl">
             <div class="relative z-10 lg:w-full lg:max-w-2xl">
-                <svg class="absolute inset-y-0 right-8 hidden h-full w-80 translate-x-1/2 transform fill-white lg:block"
+                <svg class="absolute inset-y-0 right-8 hidden h-full w-80 translate-x-1/2 transform fill-white dark:bg-zinc-800 lg:block"
                     viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                     <polygon points="0,0 90,0 50,100 0,100" />
                 </svg>
@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+        <div class="bg-gray-50 dark:bg-zinc-800 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
             <img class="aspect-[3/2] object-cover lg:aspect-auto lg:size-full"
                 src="https://images.unsplash.com/photo-1483389127117-b6a2102724ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80"
                 alt="">
