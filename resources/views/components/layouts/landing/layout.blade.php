@@ -37,8 +37,8 @@
                     </button>
                     <div class="hidden lg:ml-12 lg:flex lg:gap-x-14 whitespace-nowrap">
                         <a href="{{ route('launch') }}" class="text-sm/6 font-semibold text-gray-900"
-                            wire:navigate>Available</a>
-                            <a href="{{ route('learn.more') }}" class="text-sm/6 font-semibold text-gray-900"
+                            wire:navigate>Available Now</a>
+                        <a href="{{ route('learn.more') }}" class="text-sm/6 font-semibold text-gray-900"
                             wire:navigate>About</a>
                         <a href="{{ route('pricing') }}" class="text-sm/6 font-semibold text-gray-900"
                             wire:navigate>Pricing</a>
@@ -83,6 +83,11 @@
                 <div class="mt-6 flow-root">
                     <div class="-my-6 divide-y divide-gray-500/10">
                         <div class="space-y-2 py-6">
+                            <a href="{{ route('launch') }}"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Available
+                                Now</a>
+                            <a href="{{ route('learn.more') }}"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">About</a>
                             <a href="{{ route('pricing') }}"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Pricing</a>
                             <a href="{{ route('terms.of.service') }}"
