@@ -16,6 +16,7 @@ use Stripe\AccountLink;
 use Stripe\StripeClient;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 
 class ConnectService
@@ -114,7 +115,7 @@ class ConnectService
 
             $stripe->accounts->delete($user->stripe_account_id);
             $this->disconnect($user);
-            
+
             Log::info("Stripe account deleted successfully for user {$user->id}.");
 
             return true;
@@ -130,5 +131,54 @@ class ConnectService
             Log::error("General error deleting Stripe account: " . $e->getMessage());
             return false;
         }
+    }
+
+
+    /**
+     * Creates a login link to the Stripe Express dashboard for the given connected account,
+     * using a cached value if available. If the cache is stale or the force parameter is true,
+     * the link is fetched from Stripe.
+     *
+     * @param string $connectedAccountId The Stripe account ID of the connected account whose dashboard link is to be created.
+     * @param bool $force Set to true to force a fetch from Stripe, bypassing the cache.
+     *
+     * @return string The login link to the Stripe Express dashboard.
+     */
+    public function createExpressDashboardLink(string $connectedAccountId, bool $force = false): string
+    {
+        $cacheKey = "stripe.express_login_link.{$connectedAccountId}";
+
+        if ($force) {
+            Cache::forget($cacheKey);
+        }
+
+        return Cache::remember($cacheKey, now()->addMinutes(55), function () use ($connectedAccountId) {
+            $stripe = new StripeClient(config('services.stripe.secret'));
+            $link = $stripe->accounts->createLoginLink($connectedAccountId);
+
+            if (empty($link->url)) {
+                throw new \RuntimeException('Stripe did not return a login link URL.');
+            }
+
+            return $link->url;
+        });
+    }
+
+    /**
+     * Get the Stripe balance for a connected account.
+     *
+     * This method uses the Stripe API to retrieve the balance of the specified connected account.
+     *
+     * @param string $connectedAccountId The ID of the connected Stripe account.
+     *
+     * @return array The Stripe balance data.
+     */
+    public function getBalance(string $connectedAccountId): array
+    {
+        $stripe = new StripeClient(config('services.stripe.secret'));
+
+        return $stripe->balance->retrieve([], [
+            'stripe_account' => $connectedAccountId,
+        ])->toArray();
     }
 }

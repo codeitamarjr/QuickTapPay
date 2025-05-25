@@ -3,11 +3,15 @@
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
             <div
                 class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <livewire:widgets.sales />
+                <livewire:widgets.sales lazy />
             </div>
             <div
                 class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-widgets.connect-widget />
+                @if (auth()->user()->stripe_account_id)
+                    <livewire:widgets.stripe-widget lazy />
+                @else
+                    <x-widgets.connect-widget lazy />
+                @endif
             </div>
             <div
                 class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
@@ -16,7 +20,7 @@
             </div>
         </div>
         <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <livewire:sales.sales-table />
+            <livewire:sales.sales-table lazy />
         </div>
     </div>
 </x-layouts.app>
