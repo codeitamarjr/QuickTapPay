@@ -9,6 +9,14 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/launch', function () {
+    return view('launch');
+})->name('launch');
+
+Route::get('/learn-more', function () {
+    return view('learn-more');
+})->name('learn.more');
+
 Route::get('/terms-of-service', function () {
     return view('terms');
 })->name('terms.of.service');

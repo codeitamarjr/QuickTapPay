@@ -36,12 +36,12 @@
                         </svg>
                     </button>
                     <div class="hidden lg:ml-12 lg:flex lg:gap-x-14 whitespace-nowrap">
+                        <a href="{{ route('launch') }}" class="text-sm/6 font-semibold text-gray-900"
+                            wire:navigate>Available</a>
+                            <a href="{{ route('learn.more') }}" class="text-sm/6 font-semibold text-gray-900"
+                            wire:navigate>About</a>
                         <a href="{{ route('pricing') }}" class="text-sm/6 font-semibold text-gray-900"
                             wire:navigate>Pricing</a>
-                        <a href="{{ route('terms.of.service') }}" class="text-sm/6 font-semibold text-gray-900"
-                            wire:navigate>Terms of Use</a>
-                        <a href="{{ route('privacy.policy') }}" class="text-sm/6 font-semibold text-gray-900"
-                            wire:navigate>Privacy Policy</a>
                         @if (Route::has('login'))
                             <nav class="flex items-center justify-end gap-4">
                                 @auth
