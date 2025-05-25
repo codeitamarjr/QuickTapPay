@@ -95,7 +95,7 @@
         </div>
         <div class="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
             <img class="aspect-[3/2] object-cover lg:aspect-auto lg:size-full"
-                src="https://images.unsplash.com/photo-1627290218710-ff6006222f75?q=80&w=1664&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="https://images.unsplash.com/photo-1596983487641-a97ae9d69bc7?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="{{ config('app.name') }}">
         </div>
     </div>
