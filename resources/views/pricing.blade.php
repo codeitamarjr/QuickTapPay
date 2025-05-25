@@ -110,13 +110,13 @@
                         </div>
 
                         <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl p-2">
-                            <div class="rounded-2xl p-8 ring-1 ring-gray-200" x-data="{ amount: 50 }">
+                            <div class="rounded-2xl p-8 ring-1 ring-gray-200" x-data="{ amount: 10 }">
                                 <h3 id="tier-hobby" class="text-lg/8 font-semibold text-gray-900">
                                     Estimate Your Fees
                                 </h3>
                                 <p class="mt-4 text-sm/6 text-gray-600">
-                                    Simulate how much you will pay to get started, for standard European Economic Area
-                                    cards.
+                                    See what it costs to get started — including platform fees for payments made with
+                                    EEA-issued cards.
                                 </p>
                                 <p class="mt-6 flex items-baseline">
                                     <span class="text-4xl text-gray-600">€</span>
