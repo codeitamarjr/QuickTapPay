@@ -40,7 +40,7 @@
                                     Get tarted
                                 </a>
                             @endauth
-                            <a href="#" class="text-sm/6 font-semibold text-gray-900">Learn more <span
+                            <a href="{{ route('learn.more') }}" class="text-sm/6 font-semibold text-gray-900">Learn more <span
                                     aria-hidden="true">→</span></a>
                         </div>
                     </div>
