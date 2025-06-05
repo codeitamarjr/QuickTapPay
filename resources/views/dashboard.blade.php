@@ -1,10 +1,25 @@
 <x-layouts.app :title="__('Dashboard')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div
-                class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <livewire:widgets.sales lazy />
-            </div>
+            @if (auth()->user()->businesses->count() > 0 && auth()->user()->businesses()->whereHas('paymentLinks')->count() > 0)
+                {{-- Show sales widget if businesses exist and have sales --}}
+                <div
+                    class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
+                    <livewire:widgets.sales lazy />
+                </div>
+            @elseif(auth()->user()->businesses->count() > 0 && auth()->user()->businesses()->whereHas('paymentLinks')->count() === 0)
+                {{-- Show create payment link widget if businesses exist but no sales --}}
+                <div
+                    class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
+                    <x-widgets.create-payment-link lazy />
+                </div>
+            @elseif(auth()->user()->businesses->count() === 0)
+                {{-- Show create business widget if no businesses exist --}}
+                <div
+                    class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
+                    <x-widgets.create-business lazy />
+                </div>
+            @endif
             <div
                 class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
                 @if (auth()->user()->stripe_account_id)
