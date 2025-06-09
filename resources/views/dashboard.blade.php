@@ -20,14 +20,12 @@
                     <x-widgets.create-business lazy />
                 </div>
             @endif
-            <div
-                class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                @if (auth()->user()->stripe_account_id)
-                    <livewire:widgets.stripe-widget lazy />
-                @else
+            @if (!auth()->user()->stripe_account_id)
+                <div
+                    class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
                     <x-widgets.connect-widget lazy />
-                @endif
-            </div>
+                </div>
+            @endif
             {{-- <div
                 class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
                 <x-placeholder-pattern

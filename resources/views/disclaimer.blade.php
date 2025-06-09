@@ -20,21 +20,32 @@
                             <section>
                                 <h2 class="text-xl font-semibold text-gray-900">Last updated: 24/05/2025</h2>
                                 <p class="mt-4">
-                                    This Vendor Disclaimer outlines the responsibilities and liabilities between Quick Tap Pay, vendors using our platform, and end customers.
+                                    This Vendor Disclaimer outlines the responsibilities and liabilities between Quick Tap
+                                    Pay, vendors using our platform, and end customers.
                                 </p>
                             </section>
 
                             <section class="mt-8">
                                 <h2 class="text-xl font-semibold text-gray-900">1. Role of Quick Tap Pay</h2>
                                 <p class="mt-4">
-                                    Quick Tap Pay provides a platform for vendors to create payment links and process payments through Stripe. We are not involved in the actual sale, delivery, quality assurance, or fulfillment of products or services offered by vendors.
+                                    Quick Tap Pay provides a platform for vendors to create payment links and process
+                                    payments through Stripe. We are not involved in the actual sale, delivery, quality
+                                    assurance, or fulfillment of products or services offered by vendors.
+                                </p>
+                                <p class="mt-4">
+                                    Quick Tap Pay provides a platform for vendors to create payment links and process
+                                    payments through Stripe. We are not involved in the actual sale, delivery, quality
+                                    assurance, or fulfillment of products or services offered by vendors.
+                                    <strong>We have also configured Stripe to assume financial responsibility for negative
+                                        balances related to chargebacks on behalf of vendors using our platform.</strong>
                                 </p>
                             </section>
 
                             <section class="mt-8">
                                 <h2 class="text-xl font-semibold text-gray-900">2. Vendor Responsibility</h2>
                                 <p class="mt-4">
-                                    Vendors are solely responsible for their products, services, pricing, and customer support. This includes:
+                                    Vendors are solely responsible for their products, services, pricing, and customer
+                                    support. This includes:
                                 </p>
                                 <ul class="mt-4 list-disc pl-6">
                                     <li>Accurate product or service descriptions</li>
@@ -47,28 +58,38 @@
                             <section class="mt-8">
                                 <h2 class="text-xl font-semibold text-gray-900">3. Liability Disclaimer</h2>
                                 <p class="mt-4">
-                                    Quick Tap Pay is not liable for any damages, losses, or disputes arising from the sale or use of vendor products or services. All transactions and interactions are solely between the buyer and the vendor.
+                                    Quick Tap Pay is not liable for any damages, losses, or disputes arising from the sale
+                                    or use of vendor products or services. All transactions and interactions are solely
+                                    between the buyer and the vendor.
                                 </p>
                             </section>
 
                             <section class="mt-8">
                                 <h2 class="text-xl font-semibold text-gray-900">4. Disputes & Chargebacks</h2>
                                 <p class="mt-4">
-                                    Buyers must contact the vendor directly to resolve any issues. In the case of chargebacks or disputes through Stripe, vendors are responsible for providing evidence and addressing claims.
+                                    Buyers must contact the vendor directly to resolve any issues. In the case of
+                                    chargebacks or disputes through Stripe,
+                                    vendors are responsible for responding with evidence to defend claims. However, per our
+                                    platform setup, Stripe may cover
+                                    financial liability for negative balances related to chargebacks, subject to their
+                                    policies and discretion.
                                 </p>
                             </section>
 
                             <section class="mt-8">
                                 <h2 class="text-xl font-semibold text-gray-900">5. Communication</h2>
                                 <p class="mt-4">
-                                    Buyers and vendors are encouraged to communicate directly to resolve issues. Quick Tap Pay does not mediate disputes but may take action against vendors who violate our terms or misuse the platform.
+                                    Buyers and vendors are encouraged to communicate directly to resolve issues. Quick Tap
+                                    Pay does not mediate disputes but may take action against vendors who violate our terms
+                                    or misuse the platform.
                                 </p>
                             </section>
 
                             <section class="mt-8">
                                 <h2 class="text-xl font-semibold text-gray-900">6. Platform Integrity</h2>
                                 <p class="mt-4">
-                                    We reserve the right to suspend or remove vendors who engage in fraudulent activity, deliver poor customer experiences, or breach our Terms of Service.
+                                    We reserve the right to suspend or remove vendors who engage in fraudulent activity,
+                                    deliver poor customer experiences, or breach our Terms of Service.
                                 </p>
                             </section>
 
@@ -78,7 +99,8 @@
                                     If you have any questions regarding this disclaimer, please contact us at:<br>
                                     <strong>Quick Tap Pay</strong><br>
                                     34a Patrician Villas, Stillorgan - Dublin A94VW74<br>
-                                    Email: <a href="mailto:hello@itjunior.dev" class="text-indigo-600">hello@itjunior.dev</a>
+                                    Email: <a href="mailto:hello@itjunior.dev"
+                                        class="text-indigo-600">hello@itjunior.dev</a>
                                 </p>
                             </section>
                         </div>

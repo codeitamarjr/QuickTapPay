@@ -25,13 +25,22 @@ class ConnectService
     {
         Stripe::setApiKey(config('services.stripe.secret'));
 
+        // Vendor pay fees and losses to Stripe
         $account = Account::create([
-            'type' => 'express',
+            'controller' => [
+                'fees' => [
+                    'payer' => 'account',
+                ],
+                'losses' => [
+                    'payments' => 'stripe',
+                ],
+            ],
             'email' => $user->email,
             'metadata' => [
                 'user_id' => $user->id,
             ],
             'capabilities' => [
+                'card_payments' => ['requested' => true],
                 'transfers' => ['requested' => true],
             ],
         ]);
@@ -131,37 +140,6 @@ class ConnectService
             Log::error("General error deleting Stripe account: " . $e->getMessage());
             return false;
         }
-    }
-
-
-    /**
-     * Creates a login link to the Stripe Express dashboard for the given connected account,
-     * using a cached value if available. If the cache is stale or the force parameter is true,
-     * the link is fetched from Stripe.
-     *
-     * @param string $connectedAccountId The Stripe account ID of the connected account whose dashboard link is to be created.
-     * @param bool $force Set to true to force a fetch from Stripe, bypassing the cache.
-     *
-     * @return string The login link to the Stripe Express dashboard.
-     */
-    public function createExpressDashboardLink(string $connectedAccountId, bool $force = false): string
-    {
-        $cacheKey = "stripe.express_login_link.{$connectedAccountId}";
-
-        if ($force) {
-            Cache::forget($cacheKey);
-        }
-
-        return Cache::remember($cacheKey, now()->addMinutes(55), function () use ($connectedAccountId) {
-            $stripe = new StripeClient(config('services.stripe.secret'));
-            $link = $stripe->accounts->createLoginLink($connectedAccountId);
-
-            if (empty($link->url)) {
-                throw new \RuntimeException('Stripe did not return a login link URL.');
-            }
-
-            return $link->url;
-        });
     }
 
     /**

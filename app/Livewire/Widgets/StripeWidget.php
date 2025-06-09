@@ -9,7 +9,6 @@ use App\Services\Stripe\ConnectService;
 class StripeWidget extends Component
 {
     public $stripeBalance;
-    public $expressDashboardUrl;
 
     public function mount(ConnectService $connectService)
     {
@@ -20,7 +19,6 @@ class StripeWidget extends Component
         }
 
         $this->stripeBalance = $connectService->getBalance($user->stripe_account_id);
-        $this->expressDashboardUrl = $connectService->createExpressDashboardLink($user->stripe_account_id);
     }
 
     public function render()
