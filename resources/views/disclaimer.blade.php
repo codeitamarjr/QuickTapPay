@@ -31,11 +31,6 @@
                                     Quick Tap Pay provides a platform for vendors to create payment links and process
                                     payments through Stripe. We are not involved in the actual sale, delivery, quality
                                     assurance, or fulfillment of products or services offered by vendors.
-                                </p>
-                                <p class="mt-4">
-                                    Quick Tap Pay provides a platform for vendors to create payment links and process
-                                    payments through Stripe. We are not involved in the actual sale, delivery, quality
-                                    assurance, or fulfillment of products or services offered by vendors.
                                     <strong>We have also configured Stripe to assume financial responsibility for negative
                                         balances related to chargebacks on behalf of vendors using our platform.</strong>
                                 </p>
@@ -73,6 +68,13 @@
                                     platform setup, Stripe may cover
                                     financial liability for negative balances related to chargebacks, subject to their
                                     policies and discretion.
+                                </p>
+                                <p class="mt-4 text-sm text-gray-500 italic">
+                                    Please note: Stripe’s acceptance of financial responsibility for negative balances is
+                                    subject to their platform policies, which may change over time. Coverage is not
+                                    guaranteed and may vary based on transaction type, account status, geography, or other
+                                    risk criteria. Vendors are encouraged to review Stripe’s terms regularly and maintain
+                                    sufficient account health.
                                 </p>
                             </section>
 
