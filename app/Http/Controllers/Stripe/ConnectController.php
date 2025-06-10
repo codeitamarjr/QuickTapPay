@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Stripe;
 
+use App\Models\User;
 use Stripe\StripeClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -20,17 +21,39 @@ class ConnectController extends Controller
         return redirect()->away($url);
     }
 
+    /**
+     * Handle the callback from Stripe OAuth.
+     *
+     * This method validates the incoming request to ensure the presence of the
+     * 'code' parameter, then attempts to fetch the connected Stripe account ID
+     * using the ConnectService. Upon success, it updates the authenticated user's
+     * model with the retrieved Stripe account ID and redirects to the dashboard
+     * with a success message. If an error occurs, it logs the error and redirects
+     * to the dashboard with an error message.
+     *
+     * @param \Illuminate\Http\Request $request The incoming request instance.
+     * @param \App\Services\Stripe\ConnectService $service The service to interact
+     * with Stripe's Connect API.
+     * @return \Illuminate\Http\RedirectResponse A redirect response to the dashboard
+     * with a success or error message.
+     */
     public function handleCallback(Request $request, ConnectService $service)
     {
-        $request->validate(['code' => 'required|string']);
+        $validated = $request->validate([
+            'code' => 'required|string',
+        ]);
 
-        $stripeUserId = $service->fetchConnectedAccountId($request->get('code'));
+        try {
+            $stripeUserId = $service->fetchConnectedAccountId($validated['code']);
+            Auth::user()->update([
+                'stripe_account_id' => $stripeUserId,
+            ]);
 
-        $user = Auth::user();
-        $user->stripe_account_id = $stripeUserId;
-        $user->save();
-
-        return redirect()->route('dashboard')->with('success', 'Stripe account connected successfully.');
+            return redirect()->route('dashboard')->with('success', 'Stripe account connected successfully.');
+        } catch (\Exception $e) {
+            report($e);
+            return redirect()->route('dashboard')->with('error', 'Failed to connect Stripe account. Please try again.');
+        }
     }
 
     /**

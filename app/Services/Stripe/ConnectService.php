@@ -21,43 +21,24 @@ use Illuminate\Support\Facades\Config;
 
 class ConnectService
 {
+    /**
+     * Generates a URL for connecting a Stripe account via OAuth.
+     *
+     * @param \App\Models\User $user
+     * @return string
+     */
     public function generateConnectUrl(User $user): string
     {
-        Stripe::setApiKey(config('services.stripe.secret'));
 
-        // Vendor pay fees and losses to Stripe
-        $account = Account::create([
-            'controller' => [
-                'fees' => [
-                    'payer' => 'account',
-                ],
-                'losses' => [
-                    'payments' => 'stripe',
-                ],
-            ],
-            'email' => $user->email,
-            'metadata' => [
-                'user_id' => $user->id,
-            ],
-            'capabilities' => [
-                'card_payments' => ['requested' => true],
-                'transfers' => ['requested' => true],
-            ],
+        $url = \Stripe\OAuth::authorizeUrl([
+            'response_type' => 'code',
+            'client_id' => config('services.stripe.client_id'),
+            'scope' => 'read_write',
+            'redirect_uri' => route('stripe.connect.callback'),
+            'state' => encrypt($user->id),
         ]);
 
-        $user->update([
-            'stripe_account_id' => $account->id,
-            'stripe_ready' => false,
-        ]);
-
-        $accountLink = AccountLink::create([
-            'account' => $account->id,
-            'refresh_url' => route('dashboard'),
-            'return_url' => route('stripe.connect.callback'),
-            'type' => 'account_onboarding',
-        ]);
-
-        return $accountLink->url;
+        return $url;
     }
 
     public function fetchConnectedAccountId(string $authorizationCode): string

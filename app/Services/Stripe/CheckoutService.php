@@ -14,6 +14,7 @@ use App\Models\Sale;
 use Stripe\StripeClient;
 use App\Models\PaymentLink;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
 use Stripe\Checkout\Session as StripeSession;
@@ -50,7 +51,6 @@ class CheckoutService
 
         Stripe::setApiKey(config('services.stripe.secret'));
 
-        // Common session payload
         $sessionPayload = [
             'payment_method_types' => ['card'],
             'customer_email' => $customerData['email'],
@@ -79,18 +79,18 @@ class CheckoutService
             ],
         ];
 
-        // Only set transfer data if this is NOT the platform account
+        $createOnBehalfOfVendor = $connectedAccountId !== $platformAccountId;
+
         if ($connectedAccountId !== $platformAccountId) {
             $sessionPayload['payment_intent_data']['application_fee_amount'] = $applicationFeeAmount;
-            $sessionPayload['payment_intent_data']['transfer_data'] = [
-                'destination' => $connectedAccountId,
-            ];
+            $session = $this->stripe->checkout->sessions->create(
+                $sessionPayload,
+                ['stripe_account' => $connectedAccountId]
+            );
+        } else {
+            $session = $this->stripe->checkout->sessions->create($sessionPayload);
         }
 
-        // Create the session
-        $session = StripeSession::create($sessionPayload);
-
-        // Save the sale
         $sale = Sale::create([
             'business_id' => $businessId,
             'payment_link_id' => $link->id,
