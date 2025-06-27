@@ -18,7 +18,41 @@ class SalesTable extends Component
     public $sortDirection = 'desc';
     public bool $showRefundModal = false;
     public ?Sale $selectedSale = null;
+    public $filterOptions = [
+        'all' => 'All',
+        'paid' => 'Paid',
+        'unpaid' => 'Unpaid',
+        'refunded' => 'Refunded',
+    ];
+    public $filter = 'all';
 
+    /**
+     * Initialize the component.
+     *
+     * Retrieve the filter option from the session or default to 'all'
+     * if it does not exist.
+     *
+     * @return void
+     */
+    public function mount()
+    {
+        $this->filter = session('sales_filter', 'all');
+    }
+
+    /**
+     * Set the sales filter and reset the pagination.
+     *
+     * Called when the filter select is changed.
+     *
+     * @param string $value The new filter value.
+     *
+     * @return void
+     */
+    public function updatedFilter($value)
+    {
+        session(['sales_filter' => $value]);
+        $this->resetPage();
+    }
 
     public function sort($column)
     {
@@ -57,6 +91,9 @@ class SalesTable extends Component
                         ->orWhere('reference', 'like', '%' . $this->search . '%')
                         ->orWhere('transaction_id', 'like', '%' . $this->search . '%');
                 });
+            })
+            ->when($this->filter !== 'all', function ($query) {
+                $query->where('status', $this->filter);
             })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(10);
