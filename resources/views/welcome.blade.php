@@ -49,8 +49,8 @@
         </div>
         <div class="bg-gray-50 dark:bg-zinc-800 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
             <img class="aspect-[3/2] object-cover lg:aspect-auto lg:size-full"
-                src="https://images.unsplash.com/photo-1483389127117-b6a2102724ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80"
-                alt="">
+                src="{{ asset('/images/hero-image.avif') }}"
+                alt="A person using a laptop computer on a rooftop at sunset.">
         </div>
     </div>
 

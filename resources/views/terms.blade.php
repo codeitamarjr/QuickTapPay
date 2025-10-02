@@ -128,7 +128,7 @@
         </div>
         <div class="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
             <img class="aspect-[3/2] object-cover lg:aspect-auto lg:size-full"
-                src="https://images.unsplash.com/photo-1579187707643-35646d22b596?q=80&w=1588&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="{{ asset('/images/hero-terms.avif') }}"
                 alt="{{ config('app.name') }}">
         </div>
     </div>

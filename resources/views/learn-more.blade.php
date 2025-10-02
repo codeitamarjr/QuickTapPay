@@ -84,7 +84,7 @@
 
         <div class="bg-gray-50 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
             <img class="aspect-[3/2] object-cover lg:aspect-auto lg:size-full"
-                src="https://images.unsplash.com/photo-1610744283136-dc55b144fa95?q=80&w=1635&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="{{ asset('/images/hero-about.avif') }}"
                 alt="Quick Tap Pay Info">
         </div>
     </div>
