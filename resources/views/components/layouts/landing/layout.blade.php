@@ -37,6 +37,8 @@
     <link rel="apple-touch-icon" href="{{ asset('/favicon/apple-touch-icon.png') }}" sizes="180x180">
     <link rel="manifest" href="{{ asset('/favicon/site.webmanifest') }}">
 
+    <meta http-equiv="Cache-Control" content="max-age=604800, public">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
