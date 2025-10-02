@@ -2,8 +2,9 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "stripe:listen": "stripe listen --forward-to https://quicktappay.test/stripe/webhook",
         "build": "vite build",
-        "dev": "vite"
+        "dev": "concurrently -n vite,stripe \"vite\" \"npm:stripe:listen\""
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.0.7",

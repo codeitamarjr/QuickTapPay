@@ -56,6 +56,18 @@ STRIPE_SECRET=sk_test_...
 STRIPE_CLIENT_ID=ca_...
 ```
 
+### Stripe CLI & Webhooks Setup for Development
+
+- Install the Stripe CLI: https://docs.stripe.com/stripe-cli
+- Authenticate the CLI with your Stripe account:
+```bash
+stripe login
+```
+- Copy the account ID from the CLI output and set it in your `.env`:
+```
+STRIPE_ACCOUNT_ID=acct_...
+```
+
 - Set your webhook endpoint to `https://yourdomain.com/stripe/webhook`
 
 ### Queue Setup (Recommended)
