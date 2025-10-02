@@ -15,41 +15,47 @@
                             <div
                                 class="relative rounded-full px-3 py-1 text-sm/6 text-gray-500 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                                 Available now
-                                <a href="{{ route('launch') }}" class="whitespace-nowrap font-semibold text-indigo-600"><span
-                                        class="absolute inset-0" aria-hidden="true"></span>Read more <span
-                                        aria-hidden="true">&rarr;</span></a>
+                                <a href="{{ route('launch') }}"
+                                    class="whitespace-nowrap font-semibold text-indigo-600"><span class="absolute inset-0"
+                                        aria-hidden="true"></span>Read more <span aria-hidden="true">&rarr;</span></a>
                             </div>
                         </div>
-                        <h1 class="text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-                            Quick Payments. Seamless Experience.
+                        <h1 class="text-pretty text-5xl font-bold tracking-tight text-gray-900 sm:text-7xl">
+                            Get Paid in a Tap.
                         </h1>
-                        <p class="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
-                            Quick Tap Pay helps service providers generate instant Stripe-powered payment links.
-                            Track
-                            sales, manage transactions, and get paid with ease.
+
+                        <p class="mt-6 text-pretty text-xl font-semibold text-indigo-600">
+                            Create checkout links like magic ✨ Share & get paid instantly.
                         </p>
+
+                        <p class="mt-6 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
+                            QuickTapPay connects with your Stripe account so you can charge fixed prices
+                            for products or services in seconds. No coding, no hassle—perfect for small
+                            businesses, freelancers, and solo entrepreneurs who just want to get paid.
+                        </p>
+
                         <div class="mt-10 flex items-center gap-x-6">
                             @auth
                                 <a href="{{ url('/dashboard') }}"
                                     class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                    Dashboard
+                                    Go to Dashboard
                                 </a>
                             @else
                                 <a href="{{ route('register') }}"
                                     class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                                    Get tarted
+                                    Get Started Free
                                 </a>
                             @endauth
-                            <a href="{{ route('learn.more') }}" class="text-sm/6 font-semibold text-gray-900">Learn more <span
-                                    aria-hidden="true">→</span></a>
+                            <a href="{{ route('learn.more') }}" class="text-sm font-semibold text-gray-900">
+                                Learn more <span aria-hidden="true">→</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="bg-gray-50 dark:bg-zinc-800 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-            <img class="aspect-[3/2] object-cover lg:aspect-auto lg:size-full"
-                src="{{ asset('/images/hero-image.avif') }}"
+            <img class="aspect-[3/2] object-cover lg:aspect-auto lg:size-full" src="{{ asset('/images/hero-image.avif') }}"
                 alt="A person using a laptop computer on a rooftop at sunset.">
         </div>
     </div>

@@ -5,11 +5,35 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title')</title>
+    <title>@yield('title') | QuickTapPay Ireland</title>
+    <meta name="description"
+        content="QuickTapPay helps Irish small businesses, freelancers, and sole traders create instant Stripe-powered checkout links. Share, sell, and get paid instantly for your products and services—no hassle, no coding.">
+    <meta name="keywords"
+        content="QuickTapPay, Stripe Ireland, payment link Ireland, instant checkout, quick payments, sell online Ireland, freelance payments, small business payments, Stripe checkout link, invoice alternative, create payment link, payment app Ireland, get paid online, fast payments, freelancers Ireland, side hustle payments, checkout links, service payments, instant sales, Ireland fintech">
+    <meta name="author" content="QuickTapPay">
+
+    <!-- Open Graph for Facebook/LinkedIn -->
+    <meta property="og:title" content="QuickTapPay – Create Checkout Links Like Magic ✨">
+    <meta property="og:description"
+        content="Get paid instantly with QuickTapPay. Create Stripe-powered checkout links for products & services in seconds. Perfect for freelancers, small businesses, and entrepreneurs in Ireland.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('/images/hero-image.avif') }}">
+    <meta property="og:locale" content="en_IE">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="QuickTapPay – Instant Checkout Links in Ireland">
+    <meta name="twitter:description"
+        content="Create Stripe checkout links instantly, share them, and get paid on the spot. Built for Irish freelancers, small businesses & service providers.">
+    <meta name="twitter:image" content="{{ asset('/images/hero-image.avif') }}">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ url()->current() }}" />
 
     <link rel="icon" type="image/png" href="{{ asset('/favicon/favicon-96x96.png') }}" sizes="96x96" />
     <link rel="icon" href="{{ asset('/favicon/favicon.ico') }}" sizes="any">
-    <link rel="icon"type="image/svg+xml" href="{{ asset('/favicon/favicon.svg') }}" type="image/svg+xml">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('/favicon/favicon.svg') }}">
     <link rel="apple-touch-icon" href="{{ asset('/favicon/apple-touch-icon.png') }}" sizes="180x180">
     <link rel="manifest" href="{{ asset('/favicon/site.webmanifest') }}">
 
