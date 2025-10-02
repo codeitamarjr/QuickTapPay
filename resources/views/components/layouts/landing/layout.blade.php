@@ -47,7 +47,7 @@
                 <nav class="flex items-center justify-between lg:justify-start" aria-label="Global">
                     <a href="{{ route('home') }}" class="-m-1.5 p-1.5" wire:navigate>
                         <span class="sr-only">{{ config('app.name') }}</span>
-                        <img alt="{{ config('app.name') }}" class="h-8 w-auto"
+                        <img alt="{{ config('app.name') }} Logo" class="h-8 w-auto"
                             src="{{ asset('/favicon/favicon.svg') }}">
                     </a>
                     <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700 lg:hidden"
