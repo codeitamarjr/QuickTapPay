@@ -45,14 +45,28 @@ class ConnectController extends Controller
 
         try {
             $stripeUserId = $service->fetchConnectedAccountId($validated['code']);
-            Auth::user()->update([
+            $user = Auth::user();
+
+            $user->update([
                 'stripe_account_id' => $stripeUserId,
             ]);
 
-            return redirect()->route('dashboard')->with('success', 'Stripe account connected successfully.');
+            $user->refresh();
+
+            if ($user->hasCompletedOnboarding()) {
+                return redirect()
+                    ->route('onboarding', ['step' => 'complete'])
+                    ->with('success', 'Stripe account connected successfully.');
+            }
+
+            return redirect()
+                ->route('onboarding', ['step' => 'stripe'])
+                ->with('success', 'Stripe account connected successfully.');
         } catch (\Exception $e) {
             report($e);
-            return redirect()->route('dashboard')->with('error', 'Failed to connect Stripe account. Please try again.');
+            return redirect()
+                ->route('onboarding', ['step' => 'stripe'])
+                ->with('error', 'Failed to connect Stripe account. Please try again.');
         }
     }
 

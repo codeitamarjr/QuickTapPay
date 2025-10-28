@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class BusinessCreate extends Component
 {
+    public bool $onboarding = false;
+    public ?string $redirectTo = null;
     public string $name = '';
     public string $email = '';
     public string $phone = '';
@@ -23,6 +25,12 @@ class BusinessCreate extends Component
     public string $vat_number = '';
     public string $tax_number = '';
     public string $currency = 'EUR';
+
+    public function mount(bool $onboarding = false, ?string $redirectTo = null): void
+    {
+        $this->onboarding = $onboarding;
+        $this->redirectTo = $redirectTo;
+    }
 
     public function save()
     {
@@ -51,12 +59,20 @@ class BusinessCreate extends Component
 
         $business->users()->attach(Auth::id(), ['role' => 'admin']);
 
-        session()->flash('success', 'Business created successfully!');
-        return redirect()->route('business.index');
+        session()->flash('success', $this->onboarding
+            ? __('Business created successfully! Next, connect your Stripe account.')
+            : __('Business created successfully!')
+        );
+
+        return redirect()->to($this->redirectTo ?? route('business.index'));
     }
 
     public function render()
     {
-        return view('livewire.business.business-create');
+        return view(
+            $this->onboarding
+                ? 'livewire.onboarding.business-create'
+                : 'livewire.business.business-create'
+        );
     }
 }

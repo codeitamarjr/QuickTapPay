@@ -34,10 +34,14 @@ Route::get('/pricing', function () {
 })->name('pricing');
 
 Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'onboarded'])
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('onboarding', \App\Livewire\Onboarding\Index::class)->name('onboarding');
+});
+
+Route::middleware(['auth', 'onboarded'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
     Route::get('settings/profile', Profile::class)->name('settings.profile');

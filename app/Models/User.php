@@ -90,4 +90,15 @@ class User extends Authenticatable
     {
         return $this->roleInBusiness($business) === 'admin';
     }
+
+    public function hasCompletedOnboarding(): bool
+    {
+        if ($this->relationLoaded('businesses')) {
+            $hasBusiness = $this->businesses->isNotEmpty();
+        } else {
+            $hasBusiness = $this->businesses()->exists();
+        }
+
+        return $hasBusiness && ! empty($this->stripe_account_id);
+    }
 }

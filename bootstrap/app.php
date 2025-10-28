@@ -14,6 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'stripe/*',
         ]);
+
+        $middleware->alias([
+            'onboarded' => \App\Http\Middleware\EnsureOnboardingIsComplete::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
