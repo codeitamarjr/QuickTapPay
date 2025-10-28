@@ -27,6 +27,36 @@
                 @endif
             </div>
 
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700 dark:text-neutral-300">
+                    {{ __('Profile photo') }}
+                </label>
+                <input type="file" wire:model="photoUpload" accept="image/*"
+                    class="block w-full cursor-pointer rounded-md border border-dashed border-neutral-300 px-3 py-2 text-sm text-gray-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200" />
+                <p class="text-xs text-neutral-500 dark:text-neutral-400">
+                    {{ __('PNG, JPG, WEBP, or SVG up to 4MB.') }}
+                </p>
+                @error('photoUpload')
+                    <p class="text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                @enderror
+
+                @if ($photoUpload)
+                    <div class="mt-3 flex items-center gap-4">
+                        <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">{{ __('Preview') }}</span>
+                        <img src="{{ $photoUpload->temporaryUrl() }}" alt="{{ __('Profile photo preview') }}"
+                            class="h-16 w-16 rounded-full object-cover shadow-sm" />
+                    </div>
+                @elseif ($photoUrl)
+                    <div class="mt-3 flex items-center gap-4">
+                        <img src="{{ $photoUrl }}" alt="{{ __('Current profile photo') }}"
+                            class="h-16 w-16 rounded-full object-cover shadow-sm" />
+                        <flux:button type="button" variant="ghost" wire:click="removeProfilePhoto" class="text-sm text-red-600">
+                            {{ __('Remove photo') }}
+                        </flux:button>
+                    </div>
+                @endif
+            </div>
+
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">
                     <flux:button variant="primary" type="submit" class="w-full">{{ __('Save') }}</flux:button>

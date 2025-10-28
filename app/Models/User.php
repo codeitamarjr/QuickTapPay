@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use CodeItamarJr\Attachments\Traits\HasAttachments;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +12,7 @@ use Illuminate\Support\Str;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasAttachments;
 
     /**
      * The attributes that are mass assignable.
@@ -34,6 +35,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    protected $appends = [
+        'avatar_url',
+    ];
+
+    protected $with = [
+        'avatarAttachment',
     ];
 
     /**
@@ -68,6 +77,20 @@ class User extends Authenticatable
     public function businesses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Business::class)->withPivot('role')->withTimestamps();
+    }
+
+    public function avatarAttachment(): \Illuminate\Database\Eloquent\Relations\MorphOne
+    {
+        return $this->attachment('avatar');
+    }
+
+    public function getAvatarUrlAttribute(): ?string
+    {
+        $attachment = $this->relationLoaded('avatarAttachment')
+            ? $this->getRelation('avatarAttachment')
+            : $this->avatarAttachment()->first();
+
+        return $attachment?->url();
     }
 
     /**
