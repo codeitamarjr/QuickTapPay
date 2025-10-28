@@ -2,11 +2,11 @@
 
 namespace App\Livewire\Payment;
 
-use App\Models\Business;
-use Livewire\Component;
 use App\Models\PaymentLink;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Business;
+use Livewire\Component;
 
 class PaymentLinkCreate extends Component
 {
@@ -20,11 +20,15 @@ class PaymentLinkCreate extends Component
     public string $status = 'active';
     
     public bool $is_active = true;
+    public bool $onboarding = false;
+    public ?string $redirectTo = null;
 
-    public function mount(Business $business)
+    public function mount(Business $business, bool $onboarding = false, ?string $redirectTo = null)
     {
         abort_unless(Auth::user()->businesses->contains($business), 403);
         $this->business = $business;
+        $this->onboarding = $onboarding;
+        $this->redirectTo = $redirectTo;
     }
 
     public function save()
@@ -47,12 +51,25 @@ class PaymentLinkCreate extends Component
             'currency' => $this->currency,
         ]);
 
-        session()->flash('success', 'Payment link created successfully!');
-        return redirect()->route('payment-links.index', ['business' => $this->business]);
+        session()->flash(
+            'success',
+            $this->onboarding
+                ? __('Payment link created successfully! You can share it right away.')
+                : __('Payment link created successfully!')
+        );
+
+        return redirect()->to(
+            $this->redirectTo
+                ?? route('payment-links.index', ['business' => $this->business])
+        );
     }
 
     public function render()
     {
-        return view('livewire.payment.payment-link-create');
+        return view(
+            $this->onboarding
+                ? 'livewire.onboarding.payment-link-create'
+                : 'livewire.payment.payment-link-create'
+        );
     }
 }

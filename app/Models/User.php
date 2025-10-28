@@ -99,6 +99,21 @@ class User extends Authenticatable
             $hasBusiness = $this->businesses()->exists();
         }
 
-        return $hasBusiness && ! empty($this->stripe_account_id);
+        return $hasBusiness
+            && ! empty($this->stripe_account_id)
+            && $this->hasPaymentLinks();
+    }
+
+    public function hasPaymentLinks(): bool
+    {
+        if ($this->relationLoaded('businesses')) {
+            return $this->businesses
+                ->loadMissing('paymentLinks')
+                ->contains(fn (Business $business) => $business->paymentLinks->isNotEmpty());
+        }
+
+        return $this->businesses()
+            ->whereHas('paymentLinks')
+            ->exists();
     }
 }

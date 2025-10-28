@@ -60,8 +60,8 @@ class ConnectController extends Controller
             }
 
             return redirect()
-                ->route('onboarding', ['step' => 'stripe'])
-                ->with('success', 'Stripe account connected successfully.');
+                ->route('onboarding', ['step' => 'payment-link'])
+                ->with('success', 'Stripe account connected successfully. Next, create your first payment link.');
         } catch (\Exception $e) {
             report($e);
             return redirect()

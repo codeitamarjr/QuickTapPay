@@ -9,13 +9,17 @@
     @php
         $businessStepActive = $step === 'business';
         $stripeStepActive = $step === 'stripe';
+        $paymentLinkStepActive = $step === 'payment-link';
         $businessClasses = $hasBusiness
             ? 'bg-green-600 text-white'
             : ($businessStepActive ? 'bg-blue-600 text-white' : 'bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200');
         $stripeClasses = $stripeConnected
             ? 'bg-green-600 text-white'
             : ($stripeStepActive ? 'bg-blue-600 text-white' : 'bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200');
-        $completeClasses = $stripeConnected && $hasBusiness
+        $paymentLinkClasses = $hasPaymentLink
+            ? 'bg-green-600 text-white'
+            : ($paymentLinkStepActive ? 'bg-blue-600 text-white' : 'bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200');
+        $completeClasses = $stripeConnected && $hasBusiness && $hasPaymentLink
             ? 'bg-green-600 text-white'
             : 'bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200';
     @endphp
@@ -37,7 +41,14 @@
             <div class="h-px flex-1 bg-neutral-200 dark:bg-neutral-700"></div>
 
             <div class="flex items-center gap-3">
-                <span class="flex size-9 items-center justify-center rounded-full font-semibold {{ $completeClasses }}">3</span>
+                <span class="flex size-9 items-center justify-center rounded-full font-semibold {{ $paymentLinkClasses }}">3</span>
+                <span class="text-sm font-medium">{{ __('Create a payment link') }}</span>
+            </div>
+
+            <div class="h-px flex-1 bg-neutral-200 dark:bg-neutral-700"></div>
+
+            <div class="flex items-center gap-3">
+                <span class="flex size-9 items-center justify-center rounded-full font-semibold {{ $completeClasses }}">4</span>
                 <span class="text-sm font-medium">{{ __('Start selling') }}</span>
             </div>
         </div>
@@ -89,14 +100,42 @@
                     </flux:button>
                 </div>
             </div>
+        @elseif ($step === 'payment-link')
+            <div class="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+                <div class="space-y-3">
+                    <flux:heading size="lg">{{ __('Create your first payment link') }}</flux:heading>
+                    <flux:subheading>
+                        {{ __('Share this link with customers so you can start taking payments right away.') }}
+                    </flux:subheading>
+                </div>
+
+                <ul class="mt-4 space-y-2 text-sm text-neutral-600 dark:text-neutral-300">
+                    <li>• {{ __('Set a clear title and amount—this appears on the checkout page and receipts.') }}</li>
+                    <li>• {{ __('You can always create more links later from your dashboard.') }}</li>
+                </ul>
+
+                <div class="mt-6">
+                    @if ($primaryBusiness)
+                        <livewire:payment.payment-link-create
+                            :business="$primaryBusiness"
+                            :onboarding="true"
+                            :redirect-to="route('onboarding', ['step' => 'complete'])"
+                        />
+                    @else
+                        <div class="rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3 text-sm text-yellow-800 dark:border-yellow-900 dark:bg-yellow-950 dark:text-yellow-100">
+                            {{ __('Create a business first so we know where to save your payment link.') }}
+                        </div>
+                    @endif
+                </div>
+            </div>
         @else
             <div class="rounded-xl border border-neutral-200 bg-white p-6 text-center shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
                 <div class="mx-auto flex size-16 items-center justify-center rounded-full bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200">
                     <flux:icon.check class="size-6" />
                 </div>
-                <flux:heading size="lg" class="mt-4">{{ __('You’re ready to create payment links!') }}</flux:heading>
+                <flux:heading size="lg" class="mt-4">{{ __('You’re ready to start selling!') }}</flux:heading>
                 <flux:subheading class="mt-2">
-                    {{ __('Head to your dashboard to start creating links and tracking payments.') }}
+                    {{ __('Head to your dashboard to share your payment link and track payments as they come in.') }}
                 </flux:subheading>
 
                 <div class="mt-6 flex justify-center gap-3">
