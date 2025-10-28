@@ -17,6 +17,8 @@ Route::get('/learn-more', function () {
     return view('learn-more');
 })->name('learn.more');
 
+Route::view('/how-to', 'how-to')->name('how.to');
+
 Route::get('/terms-of-service', function () {
     return view('terms');
 })->name('terms.of.service');

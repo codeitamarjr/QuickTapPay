@@ -66,6 +66,8 @@
                             wire:navigate>Available Now</a>
                         <a href="{{ route('learn.more') }}" class="text-sm/6 font-semibold text-gray-900"
                             wire:navigate>About</a>
+                        <a href="{{ route('how.to') }}" class="text-sm/6 font-semibold text-gray-900"
+                            wire:navigate>How it works</a>
                         <a href="{{ route('pricing') }}" class="text-sm/6 font-semibold text-gray-900"
                             wire:navigate>Pricing</a>
                         @if (Route::has('login'))
@@ -114,6 +116,9 @@
                                 Now</a>
                             <a href="{{ route('learn.more') }}"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">About</a>
+                            <a href="{{ route('how.to') }}"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">How
+                                it works</a>
                             <a href="{{ route('pricing') }}"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Pricing</a>
                             <a href="{{ route('terms.of.service') }}"
@@ -147,6 +152,7 @@
         <div class="max-w-7xl mx-auto px-4 py-6 text-sm text-gray-500 text-center space-y-2">
             <nav class="space-x-4">
                 <a href="{{ route('pricing') }}" class="text-md hover:text-indigo-600 transition">Pricing</a>
+                <a href="{{ route('how.to') }}" class="text-md hover:text-indigo-600 transition">How it works</a>
                 <a href="{{ route('privacy.policy') }}" class="text-md hover:text-indigo-600 transition">Privacy
                     Policy</a>
                 <a href="{{ route('terms.of.service') }}" class="text-md hover:text-indigo-600 transition">Terms of
