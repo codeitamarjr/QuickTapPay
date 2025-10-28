@@ -2,12 +2,17 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\Business;
+use App\Services\Attachments\AttachmentService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class BusinessEdit extends Component
 {
+    use WithFileUploads;
+
     public Business $business;
 
     public string $name;
@@ -24,6 +29,8 @@ class BusinessEdit extends Component
     public ?string $vat_number = null;
     public ?string $tax_number = null;
     public string $currency = 'EUR';
+    public $logoUpload = null;
+    public ?string $logoUrl = null;
 
 
     public function mount(Business $business)
@@ -47,14 +54,17 @@ class BusinessEdit extends Component
             'tax_number',
             'currency'
         ]));
+
+        $this->logoUrl = $business->logo_url;
     }
 
-    public function update()
+    public function update(AttachmentService $attachments)
     {
         $this->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:businesses,email,' . $this->business->id,
             'currency' => 'required|string|max:3',
+            'logoUpload' => 'nullable|mimes:jpg,jpeg,png,svg,webp|max:4096',
         ]);
 
         $this->business->update([
@@ -74,9 +84,30 @@ class BusinessEdit extends Component
             'currency' => $this->currency,
         ]);
 
+        if ($this->logoUpload) {
+            $logo = $attachments->replace($this->business, $this->logoUpload, 'logo', Auth::id());
+            $this->business->forceFill(['logo' => $logo->path])->save();
+            $this->logoUrl = $logo->url();
+        }
+
         $this->dispatch('saved');
         session()->flash('success', 'Business updated successfully.');
         return redirect()->route('business.index');
+    }
+
+    public function removeLogo(AttachmentService $attachments): void
+    {
+        $attachments->delete($this->business, 'logo');
+
+        if ($legacyLogo = $this->business->logo) {
+            Storage::disk('public')->delete($legacyLogo);
+        }
+
+        $this->business->forceFill(['logo' => null])->save();
+        $this->logoUpload = null;
+        $this->logoUrl = null;
+
+        session()->flash('success', __('Business logo removed.'));
     }
 
     public function render()

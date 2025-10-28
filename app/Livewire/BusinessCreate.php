@@ -2,12 +2,16 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\Business;
+use App\Services\Attachments\AttachmentService;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class BusinessCreate extends Component
 {
+    use WithFileUploads;
+
     public bool $onboarding = false;
     public ?string $redirectTo = null;
     public string $name = '';
@@ -21,10 +25,10 @@ class BusinessCreate extends Component
     public string $city = '';
     public string $country = '';
     public string $website = '';
-    public string $logo = '';
     public string $vat_number = '';
     public string $tax_number = '';
     public string $currency = 'EUR';
+    public $logoUpload = null;
 
     public function mount(bool $onboarding = false, ?string $redirectTo = null): void
     {
@@ -32,12 +36,13 @@ class BusinessCreate extends Component
         $this->redirectTo = $redirectTo;
     }
 
-    public function save()
+    public function save(AttachmentService $attachments)
     {
         $this->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:businesses,email',
             'currency' => 'required|string|max:3',
+            'logoUpload' => 'nullable|mimes:jpg,jpeg,png,svg,webp|max:4096',
         ]);
 
         $business = Business::create([
@@ -58,6 +63,11 @@ class BusinessCreate extends Component
         ]);
 
         $business->users()->attach(Auth::id(), ['role' => 'admin']);
+
+        if ($this->logoUpload) {
+            $logo = $attachments->store($business, $this->logoUpload, 'logo', Auth::id());
+            $business->forceFill(['logo' => $logo->path])->save();
+        }
 
         session()->flash('success', $this->onboarding
             ? __('Business created successfully! Next, connect your Stripe account.')

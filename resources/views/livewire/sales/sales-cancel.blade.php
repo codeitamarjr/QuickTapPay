@@ -1,9 +1,9 @@
  <div>
      <x-slot name="logo">
-         @if ($link->business->logo)
-             <img src="{{ asset('storage/' . $link->business->logo) }}" alt="{{ $link->business->name }}"
-                 class="h-8 w-auto" />
-         @endif
+        @if ($link->business->logo_url)
+            <img src="{{ $link->business->logo_url }}" alt="{{ $link->business->name }}"
+                class="h-8 w-auto" />
+        @endif
      </x-slot>
 
      <x-slot name="title">{{ $link->business->name ?? 'Checkout' }}</x-slot>

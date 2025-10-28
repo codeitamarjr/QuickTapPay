@@ -17,6 +17,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Default Disk For Attachments
+    |--------------------------------------------------------------------------
+    |
+    | The disk used by the attachment service when storing uploaded files.
+    | This allows you to keep general storage separate from media uploads.
+    |
+    */
+
+    'attachments_disk' => env('ATTACHMENTS_DISK', env('FILESYSTEM_DISK', 'local')),
+
+    /*
+    |--------------------------------------------------------------------------
     | Filesystem Disks
     |--------------------------------------------------------------------------
     |
@@ -58,6 +70,23 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
             'report' => false,
+        ],
+
+        'r2' => [
+            'driver' => 's3',
+            'key' => env('CLOUDFLARE_R2_ACCESS_KEY_ID'),
+            'secret' => env('CLOUDFLARE_R2_SECRET_ACCESS_KEY'),
+            'region' => env('CLOUDFLARE_R2_REGION', 'auto'),
+            'bucket' => env('CLOUDFLARE_R2_BUCKET'),
+            'endpoint' => env('CLOUDFLARE_R2_ENDPOINT')
+                ?: (env('CLOUDFLARE_R2_ACCOUNT_ID')
+                    ? 'https://' . env('CLOUDFLARE_R2_ACCOUNT_ID') . '.r2.cloudflarestorage.com'
+                    : null),
+            'url' => env('CLOUDFLARE_R2_PUBLIC_URL'),
+            'use_path_style_endpoint' => env('CLOUDFLARE_R2_USE_PATH_STYLE', true),
+            'throw' => false,
+            'report' => false,
+            'visibility' => 'public',
         ],
 
     ],
