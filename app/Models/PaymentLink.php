@@ -35,6 +35,16 @@ class PaymentLink extends Model
     }
 
     /**
+     * The user who created the payment link.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
      * Get the sales made through this payment link.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Sale>
