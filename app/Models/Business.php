@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\Storage;
-use QuickTapPay\Attachments\Traits\HasAttachments;
+use CodeItamarJr\Attachments\Traits\HasAttachments;
 
 class Business extends Model
 {
