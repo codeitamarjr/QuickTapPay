@@ -25,7 +25,6 @@ return [
     |
     */
 
-    'attachments_disk' => env('ATTACHMENTS_DISK', env('FILESYSTEM_DISK', 'local')),
 
     /*
     |--------------------------------------------------------------------------

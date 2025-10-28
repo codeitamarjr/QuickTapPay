@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-use App\Models\Attachment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\Storage;
+use QuickTapPay\Attachments\Traits\HasAttachments;
 
 class Business extends Model
 {
     /** @use HasFactory<\Database\Factories\BusinessFactory> */
     use HasFactory;
+    use HasAttachments;
 
     protected $fillable = [
         'name',
@@ -61,24 +61,13 @@ class Business extends Model
     }
 
     /**
-     * Attachments stored for the business.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function attachments(): MorphMany
-    {
-        return $this->morphMany(Attachment::class, 'attachable');
-    }
-
-    /**
      * The attachment representing the business logo.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
     public function logoAttachment(): MorphOne
     {
-        return $this->morphOne(Attachment::class, 'attachable')
-            ->where('collection', 'logo');
+        return $this->attachment('logo');
     }
 
     /**
@@ -102,10 +91,6 @@ class Business extends Model
 
         $legacyPath = $this->attributes['logo'] ?? null;
 
-        if ($legacyPath) {
-            return Storage::disk('public')->url($legacyPath);
-        }
-
-        return null;
+        return $legacyPath ? Storage::disk('public')->url($legacyPath) : null;
     }
 }

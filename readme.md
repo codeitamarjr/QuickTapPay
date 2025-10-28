@@ -44,6 +44,23 @@ php artisan migrate
 npm install && npm run dev
 ```
 
+### Attachments Package
+
+This project now ships with the reusable `quicktappay/attachments` package for polymorphic media uploads. After running `composer install`, ensure the package is symlinked locally by running:
+
+```bash
+composer update quicktappay/attachments
+```
+
+Then publish the configuration (optional) and migration stub if you need to customise them:
+
+```bash
+php artisan vendor:publish --tag=attachments-config
+php artisan vendor:publish --tag=attachments-migrations
+```
+
+By default, attachments are stored on the disk defined by `ATTACHMENTS_DISK` in `.env`.
+
 ### Stripe Setup
 
 - Create a Stripe account

@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Business;
-use App\Services\Attachments\AttachmentService;
+use QuickTapPay\Attachments\Services\AttachmentService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;

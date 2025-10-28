@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "232befb684608a1f837e6f9f60d1d384",
+    "content-hash": "601795b6be4ae7e7b3c7ea3d7f5a7dae",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -285,6 +285,43 @@
                 }
             ],
             "time": "2024-02-09T16:56:22+00:00"
+        },
+        {
+            "name": "codeitamarjr/laravel-attachments",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "packages/laravel-attachments",
+                "reference": "e946e7844d549385bba117f8cd69782ddfeaa4ff"
+            },
+            "require": {
+                "illuminate/database": "^11.0|^12.0",
+                "illuminate/filesystem": "^11.0|^12.0",
+                "illuminate/support": "^11.0|^12.0",
+                "league/flysystem-aws-s3-v3": "^3.0",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "CodeItamarJr\\Attachments\\AttachmentServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CodeItamarJr\\Attachments\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Reusable polymorphic attachment handling for Laravel.",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "dflydev/dot-access-data",
@@ -8936,7 +8973,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "codeitamarjr/laravel-attachments": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
