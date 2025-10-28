@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "601795b6be4ae7e7b3c7ea3d7f5a7dae",
+    "content-hash": "61a8e31d8d3812b5ee7dacb5a7f9ea06",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -288,11 +288,17 @@
         },
         {
             "name": "codeitamarjr/laravel-attachments",
-            "version": "dev-main",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codeitamarjr/laravel-attachments.git",
+                "reference": "47630d89a7c436f10777c87364018912c36ff970"
+            },
             "dist": {
-                "type": "path",
-                "url": "packages/laravel-attachments",
-                "reference": "e946e7844d549385bba117f8cd69782ddfeaa4ff"
+                "type": "zip",
+                "url": "https://api.github.com/repos/codeitamarjr/laravel-attachments/zipball/47630d89a7c436f10777c87364018912c36ff970",
+                "reference": "47630d89a7c436f10777c87364018912c36ff970",
+                "shasum": ""
             },
             "require": {
                 "illuminate/database": "^11.0|^12.0",
@@ -314,14 +320,16 @@
                     "CodeItamarJr\\Attachments\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "description": "Reusable polymorphic attachment handling for Laravel.",
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/codeitamarjr/laravel-attachments/issues",
+                "source": "https://github.com/codeitamarjr/laravel-attachments/tree/v0.1.0"
+            },
+            "time": "2025-10-28T17:52:57+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -8973,9 +8981,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "codeitamarjr/laravel-attachments": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
