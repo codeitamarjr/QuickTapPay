@@ -39,7 +39,7 @@ class CheckoutService
         $connectedAccountId = $user->stripe_account_id;
 
         if (! $user->stripe_ready) {
-            abort(400, 'Your Stripe account is still being verified. Please try again later.');
+            abort(400, 'Checkout is temporarily unavailable while this business completes Stripe verification.');
         }
 
         abort_unless($connectedAccountId, 400, 'You need to connect your Stripe account first.');

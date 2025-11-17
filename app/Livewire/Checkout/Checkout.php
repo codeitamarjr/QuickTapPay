@@ -13,6 +13,8 @@ class Checkout extends Component
 {
     public PaymentLink $link;
 
+    public bool $stripeReady = true;
+
     public string $name = '';
     public string $email = '';
     public string $phone = '';
@@ -20,12 +22,21 @@ class Checkout extends Component
 
     public function mount(PaymentLink $paymentLink)
     {
-        abort_unless($paymentLink->business->users->where('pivot.role', 'admin')->first()->stripe_account_id, 403, 'You need to connect your Stripe account first.');
+        $admin = $paymentLink->business->users->where('pivot.role', 'admin')->first();
+
+        abort_unless($admin, 403, 'You need to connect your Stripe account first.');
+        abort_unless($admin->stripe_account_id, 403, 'You need to connect your Stripe account first.');
+
+        $this->stripeReady = (bool) $admin->stripe_ready;
         $this->link = $paymentLink->load('business');
     }
 
     public function submit()
     {
+        if (! $this->stripeReady) {
+            return;
+        }
+
         $this->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
@@ -46,6 +57,10 @@ class Checkout extends Component
 
     public function render()
     {
+        if (! $this->stripeReady) {
+            return view('livewire.checkout.stripe-pending');
+        }
+
         return view('livewire.checkout.checkout');
     }
 }
