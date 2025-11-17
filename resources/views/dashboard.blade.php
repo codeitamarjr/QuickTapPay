@@ -25,6 +25,11 @@
                     class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
                     <x-widgets.connect-widget lazy />
                 </div>
+            @elseif(auth()->user()->stripe_account_id && !auth()->user()->stripe_ready)
+                <div
+                    class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
+                    <x-widgets.stripe-review lazy />
+                </div>
             @endif
             {{-- <div
                 class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
